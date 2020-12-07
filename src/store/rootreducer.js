@@ -1,6 +1,8 @@
-// src/store/reducer.js
 import { combineReducers } from "redux";
+import appState from "./appState/reducer";
+import user from "./user/reducer";
 
-const reducer = combineReducers({});
-
-export default reducer;
+export default combineReducers({
+  appState,
+  user,
+});
