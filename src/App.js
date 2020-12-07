@@ -8,7 +8,7 @@ import MessageBox from "./components/MessageBox";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import HomePage from "./pages/HomePage/HomePage";
-// import MyNotebooksPage from "./pages/HomePage/HomePage";
+import MyNotebooksPage from "./pages/HomePage/HomePage";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
@@ -30,7 +30,7 @@ function App() {
       {isLoading ? <Loading /> : null}
       <Switch>
         <Route exact path="/" component={HomePage} />
-        {/* <Route path="/notebook/:id" component={MyNotebooksPage} /> */}
+        <Route path="/my-notebooks" component={MyNotebooksPage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>
