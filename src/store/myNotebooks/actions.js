@@ -4,7 +4,7 @@ import { selectUser } from "../user/selectors";
 import {
   appLoading,
   appDoneLoading,
-  showMessageWithTimeout,
+  //   showMessageWithTimeout,
 } from "../appState/actions";
 
 export function allNotebooksFetched(allNotebooks) {
