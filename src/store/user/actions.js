@@ -53,12 +53,12 @@ export const signUp = (firstName, lastName, username, email, password) => {
   };
 };
 
-export const login = (userName, password) => {
+export const login = (username, password) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
       const response = await axios.post(`${apiUrl}/login`, {
-        userName,
+        username,
         password,
       });
       dispatch(loginSuccess(response.data));

@@ -3,8 +3,7 @@ import React from "react";
 export default function Notebook(props) {
   return (
     <div>
-      <h4>Name:</h4>
-      <div>{props.name}</div>
+      <div class="align-self-center p-4">{props.name}</div>
     </div>
   );
 }

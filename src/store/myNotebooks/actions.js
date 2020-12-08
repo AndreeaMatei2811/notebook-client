@@ -7,25 +7,25 @@ import {
   showMessageWithTimeout,
 } from "../appState/actions";
 
-export function allMyNotebooksFetched(allMyNotebooks) {
+export function allNotebooksFetched(allNotebooks) {
   return {
-    type: "allMyNotebooksFetched",
-    payload: allMyNotebooks,
+    type: "allNotebooksFetched",
+    payload: allNotebooks,
   };
 }
 
-export function fetchAllMyNotebooks() {
+export function fetchAllNotebooks() {
   return async function thunk(dispatch, getState) {
     dispatch(appLoading());
     const { token } = selectUser(getState());
-    const res = await axios.get(`${apiUrl}/my-notebooks`, {
+    const res = await axios.get(`${apiUrl}/notebooks`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    const allMyNotebooks = res.data;
+    const allNotebooks = res.data;
 
-    dispatch(allMyNotebooksFetched(allMyNotebooks));
+    dispatch(allNotebooksFetched(allNotebooks));
     dispatch(appDoneLoading());
   };
 }
