@@ -15,6 +15,11 @@ import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NotebookPage from "./pages/NotebookPage/NotebookPage";
+import AddNotePage from "./pages/NotebookPage/AddNotePage";
+import TextNotesPage from "./pages/NotebookPage/TextNotesPage";
+import SnippetNotesPage from "./pages/NotebookPage/SnippetNotesPage";
+import DefinitionNotesPage from "./pages/NotebookPage/DefinitionNotesPage";
+import ImageNotesPage from "./pages/NotebookPage/ImageNotesPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,9 +37,17 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/my-notebooks" component={MyNotebooksPage} />
-        <Route path="/notebook/:id" component={NotebookPage} />
+        <Route exact path="/notebook/:id" component={NotebookPage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
+        <Route path="/notebook/:id/add" component={AddNotePage} />
+        <Route path="/notebook/:id/textnotes" component={TextNotesPage} />
+        <Route path="/notebook/:id/snippets" component={SnippetNotesPage} />
+        <Route
+          path="/notebook/:id/definitions"
+          component={DefinitionNotesPage}
+        />
+        <Route path="/notebook/:id/images" component={ImageNotesPage} />
       </Switch>
     </div>
   );

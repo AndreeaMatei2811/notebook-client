@@ -3,14 +3,14 @@ import NotebookHeader from "../../components/Notes/NotebookHeader";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import "./NotebookPage.scss";
 
-export default function NotebookPage() {
+export default function DefinitionNotesPage() {
   return (
     <div className="notebook">
       <div className="side">
         <Sidebar />
       </div>
       <div className="main">
-        <NotebookHeader header="Notebook" subheader="some subheader" />
+        <NotebookHeader header="Definitions" subheader="some subheader" />
       </div>
     </div>
   );
