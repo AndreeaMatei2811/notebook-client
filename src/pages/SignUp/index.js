@@ -9,9 +9,11 @@ import { useHistory, Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
 
 export default function SignUp() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [firstName, set_firstName] = useState("");
+  const [lastName, set_lastName] = useState("");
+  const [username, set_username] = useState("");
+  const [email, set_email] = useState("");
+  const [password, set_password] = useState("");
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const history = useHistory();
@@ -25,24 +27,46 @@ export default function SignUp() {
   function submitForm(event) {
     event.preventDefault();
 
-    dispatch(signUp(name, email, password));
+    dispatch(signUp(firstName, lastName, username, email, password));
 
-    setEmail("");
-    setPassword("");
-    setName("");
+    set_firstName("");
+    set_lastName("");
+    set_username("");
+    set_email("");
+    set_password("");
   }
 
   return (
     <Container>
       <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
         <h1 className="mt-5 mb-5">Signup</h1>
-        <Form.Group controlId="formBasicName">
-          <Form.Label>Name</Form.Label>
+        <Form.Group controlId="formBasicFirstName">
+          <Form.Label>First name</Form.Label>
           <Form.Control
-            value={name}
-            onChange={(event) => setName(event.target.value)}
+            value={firstName}
+            onChange={(event) => set_firstName(event.target.value)}
             type="text"
-            placeholder="Enter name"
+            placeholder="Enter first name"
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="formBasicLastName">
+          <Form.Label>Last name</Form.Label>
+          <Form.Control
+            value={lastName}
+            onChange={(event) => set_lastName(event.target.value)}
+            type="text"
+            placeholder="Enter last name"
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="formBasicUsername">
+          <Form.Label>user name</Form.Label>
+          <Form.Control
+            value={username}
+            onChange={(event) => set_username(event.target.value)}
+            type="text"
+            placeholder="Enter user name"
             required
           />
         </Form.Group>
@@ -50,7 +74,7 @@ export default function SignUp() {
           <Form.Label>Email address</Form.Label>
           <Form.Control
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) => set_email(event.target.value)}
             type="email"
             placeholder="Enter email"
             required
@@ -64,7 +88,7 @@ export default function SignUp() {
           <Form.Label>Password</Form.Label>
           <Form.Control
             value={password}
-            onChange={(event) => setPassword(event.target.value)}
+            onChange={(event) => set_password(event.target.value)}
             type="password"
             placeholder="Password"
             required
