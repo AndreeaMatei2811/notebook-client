@@ -6,8 +6,10 @@ const initialState = {
   lastName: null,
   username: null,
   email: null,
+  notebooks: [],
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
@@ -20,6 +22,13 @@ export default (state = initialState, action) => {
 
     case TOKEN_STILL_VALID:
       return { ...state, ...action.payload };
+
+    case "newNotebookSucces": {
+      return {
+        state,
+        notebooks: [...state.notebooks, action.payload],
+      };
+    }
 
     default:
       return state;

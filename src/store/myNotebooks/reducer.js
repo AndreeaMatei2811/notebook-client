@@ -1,13 +1,13 @@
 const initialState = {
-  allMyNotebooks: [],
+  allNotebooks: [],
 };
 
-export default function allMyNotebooksReducer(state = initialState, action) {
+export default function allNotebooksReducer(state = initialState, action) {
   switch (action.type) {
-    case "allMyNotebooks": {
+    case "allNotebooksFetched": {
       return {
         state,
-        allMyNotebooks: [...action.payload],
+        allNotebooks: [...action.payload],
       };
     }
 

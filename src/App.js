@@ -8,7 +8,7 @@ import MessageBox from "./components/MessageBox";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import HomePage from "./pages/HomePage/HomePage";
-import MyNotebooksPage from "./pages/HomePage/HomePage";
+import MyNotebooksPage from "./pages/MyNotebooksPage/MyNotebooksPage";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";

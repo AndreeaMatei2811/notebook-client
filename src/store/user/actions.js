@@ -26,6 +26,37 @@ const tokenStillValid = (userWithoutToken) => ({
 
 export const logOut = () => ({ type: LOG_OUT });
 
+export const newNotebookSucces = (newNotebook) => ({
+  type: "newNotebookSucces",
+  payload: newNotebook,
+});
+
+export function newNotebook(name) {
+  return async (dispatch, getState) => {
+    const { token } = selectToken(getState());
+
+    dispatch(appLoading());
+
+    const response = await axios.post(
+      `${apiUrl}/notebooks`,
+      {
+        name,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    dispatch(
+      showMessageWithTimeout("success", false, response.data.message, 3000)
+    );
+
+    dispatch(newNotebookSucces(response.data.newNotebook));
+    dispatch(appDoneLoading());
+  };
+}
+
 export const signUp = (firstName, lastName, username, email, password) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
@@ -53,12 +84,12 @@ export const signUp = (firstName, lastName, username, email, password) => {
   };
 };
 
-export const login = (userName, password) => {
+export const login = (username, password) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
       const response = await axios.post(`${apiUrl}/login`, {
-        userName,
+        username,
         password,
       });
       dispatch(loginSuccess(response.data));

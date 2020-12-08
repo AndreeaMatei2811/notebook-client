@@ -1,3 +1,3 @@
-export const selectAllMyNotebooks = (state) => {
-  return state.myNotebooks.allMyNotebooks;
+export const selectAllNotebooks = (state) => {
+  return state.notebooks.allNotebooks;
 };
