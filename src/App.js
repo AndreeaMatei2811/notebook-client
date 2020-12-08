@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
+import FellowStudents from "./pages/FellowStudents/FellowStudents";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/my-notebooks" component={MyNotebooksPage} />
+        <Route path="/fellow-students" component={FellowStudents} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>
