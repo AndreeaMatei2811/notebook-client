@@ -2,7 +2,9 @@ import { LOG_OUT, LOGIN_SUCCESS, TOKEN_STILL_VALID } from "./actions";
 
 const initialState = {
   token: localStorage.getItem("token"),
-  name: null,
+  firstName: null,
+  lastName: null,
+  username: null,
   email: null,
 };
 

@@ -9,7 +9,7 @@ import { useHistory, Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
 
 export default function SignUp() {
-  const [email, setEmail] = useState("");
+  const [userName, set_userName] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
@@ -25,9 +25,9 @@ export default function SignUp() {
     console.log("hi");
     event.preventDefault();
 
-    dispatch(login(email, password));
+    dispatch(login(userName, password));
 
-    setEmail("");
+    set_userName("");
     setPassword("");
   }
 
@@ -35,13 +35,13 @@ export default function SignUp() {
     <Container>
       <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
         <h1 className="mt-5 mb-5">Login</h1>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
+        <Form.Group controlId="formBasicUserName">
+          <Form.Label>User name</Form.Label>
           <Form.Control
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            type="email"
-            placeholder="Enter email"
+            value={userName}
+            onChange={(event) => set_userName(event.target.value)}
+            type="text"
+            placeholder="Enter userName"
             required
           />
         </Form.Group>
