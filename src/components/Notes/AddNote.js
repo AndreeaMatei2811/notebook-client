@@ -6,6 +6,8 @@ export default function AddNote() {
   //find a component library with text editor
   return (
     <div className="addNote">
+      {/* <NoteEditor /> */}
+      {/* <NoteTextEditor /> */}
       <NoteEditor />
     </div>
   );
