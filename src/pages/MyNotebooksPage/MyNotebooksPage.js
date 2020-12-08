@@ -1,18 +1,28 @@
-import React, { useState } from "react"; // useEffect, useState
+import React, { useEffect, useState } from "react"; // useEffect, useState
 import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import { newNotebook } from "../../store/user/actions";
 
 import { selectMyNotebooks } from "../../store/user/selectors";
+import { selectAllSubjects } from "../../store/subjects/selectors";
 import Notebook from "../../components/notebook/Notebook";
-import { Form, Modal } from "react-bootstrap";
+import { CardDeck, Form, Modal } from "react-bootstrap";
+import { fetchAllSubjects } from "../../store/subjects/actions";
 
 export default function MyNotebooksPage() {
   const dispatch = useDispatch();
   const myNotebooks = useSelector(selectMyNotebooks);
+  const subjects = useSelector(selectAllSubjects);
+
+  console.log("subjects", subjects);
+
   console.log("my notebooks", myNotebooks);
   const [modalShow, setModalShow] = useState(false);
   const [name, set_name] = useState("");
+
+  useEffect(() => {
+    dispatch(fetchAllSubjects());
+  }, [dispatch]);
 
   function submitNewNotebook() {
     dispatch(newNotebook(name));
@@ -43,30 +53,28 @@ export default function MyNotebooksPage() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form>
-            <div className="form-group">
-              <label for="inputName1">
-                Please fill in a name of your new notebook
-              </label>
-              <input
+          <Form>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Please fill in a name</Form.Label>
+              <Form.Control
                 type="text"
-                className="form-control"
-                id="inputName1"
-                aria-describedby="name"
                 placeholder="Name"
                 onChange={(e) => set_name(e.target.value)}
               />
-            </div>
-
-            <div className="form-group">
-              <label for="selectSubject1">
-                Please select a subject for your new notebook
-              </label>
+            </Form.Group>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Please select a subject</Form.Label>
               <select className="form-control">
-                <option>1</option>
+                {subjects.map((subject) => {
+                  return (
+                    <option value={subject} key={subject.id}>
+                      {subject.name}
+                    </option>
+                  );
+                })}
               </select>
-            </div>
-          </form>
+            </Form.Group>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={submitNewNotebook}>Add new notebook</Button>
@@ -79,7 +87,7 @@ export default function MyNotebooksPage() {
     <div>
       <h3 className="align-self-center p-4">All my notebooks</h3>
       <div>
-        <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2 p-4">
+        <form className="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2 p-4">
           <input
             className="form-control form-control-sm mr-3 w-65"
             type="text"
@@ -108,7 +116,11 @@ export default function MyNotebooksPage() {
 
       <div>
         {myNotebooks.map((notebook) => {
-          return <Notebook key={notebook.id} name={notebook.name} />;
+          return (
+            // <CardDeck>
+            <Notebook key={notebook.id} name={notebook.name} />
+            // </CardDeck>
+          );
         })}
       </div>
     </div>
