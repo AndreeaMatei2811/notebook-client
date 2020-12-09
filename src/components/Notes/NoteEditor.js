@@ -65,7 +65,11 @@ export default function RichEditorExample() {
   }
 
   const raw = convertToRaw(contentState);
-  const rawContent = JSON.stringify(raw, null, 2);
+  const rawContent = JSON.stringify(raw);
+  const backToRaw = JSON.parse(rawContent);
+  console.log("backtoraw", backToRaw);
+  console.log("normal raw", raw);
+  console.log("rawcontent", rawContent);
 
   // console.log("displayRaw", rawContent);
 

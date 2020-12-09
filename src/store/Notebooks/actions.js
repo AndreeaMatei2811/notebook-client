@@ -37,9 +37,10 @@ export function addANote(notebookId, title, content) {
   };
 }
 
-export function addNoteToNotebook(notebookId, title, content) {
+export function addNoteToNotebook(notebookId, title, content, raw) {
   console.log("did i get to addnotetonotebook");
   return async function thunk(dispatch, getState) {
+    dispatch(appLoading());
     const token = selectToken(getState());
 
     try {
@@ -58,8 +59,11 @@ export function addNoteToNotebook(notebookId, title, content) {
       );
       console.log("response", res);
       dispatch(addANote(notebookId, title, content));
+      dispatch(appDoneLoading());
     } catch (error) {
       console.error(error);
+      dispatch(appDoneLoading());
     }
+    dispatch(appDoneLoading());
   };
 }
