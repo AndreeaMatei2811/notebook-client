@@ -6,7 +6,7 @@ import { newNotebook } from "../../store/user/actions";
 import { selectMyNotebooks } from "../../store/user/selectors";
 import { selectAllSubjects } from "../../store/subjects/selectors";
 import Notebook from "../../components/notebook/Notebook";
-import { CardDeck, Form, Modal } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import { fetchAllSubjects } from "../../store/subjects/actions";
 
 export default function MyNotebooksPage() {
@@ -14,30 +14,38 @@ export default function MyNotebooksPage() {
   const myNotebooks = useSelector(selectMyNotebooks);
   const subjects = useSelector(selectAllSubjects);
 
-  console.log("subjects", subjects);
-
-  console.log("my notebooks", myNotebooks);
   const [modalShow, setModalShow] = useState(false);
   const [name, set_name] = useState("");
+  const [subjectId, set_subjectId] = useState();
+
+  const onChangeName = (e) => {
+    console.log("onChangeName", e.target.value);
+
+    set_name(e.target.value);
+  };
+
+  const onChangeSelect = (e) => {
+    const subject = subjects.find((subject) => subject.name === e.target.value);
+    console.log("onChangeSelect", subject.id);
+    // set_subjectId(subject.id);
+  };
+
+  console.log("subjectId", subjectId);
+  console.log("name", name);
+  // console.log("subjects", subjects);
+  // console.log("my notebooks", myNotebooks);
 
   useEffect(() => {
     dispatch(fetchAllSubjects());
   }, [dispatch]);
 
   function submitNewNotebook() {
-    dispatch(newNotebook(name));
-    setModalShow(false);
+    // dispatch(newNotebook(name, subjectId));
+    console.log("got run");
+    // setModalShow(false);
+    // set_name("");
+    // set_subjectId();
   }
-
-  // const [searchedNotebook, set_searchedNotebook] = useState("");
-
-  // useEffect(() => {
-  //   dispatch(fetchAllMyNotebooks());
-  // }, [dispatch]);
-
-  // const findNotebook = myNotebooks.find(
-  //   (product) => searchedNotebook === product.name
-  // );
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -54,25 +62,26 @@ export default function MyNotebooksPage() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="formBasicName">
               <Form.Label>Please fill in a name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Name"
-                onChange={(e) => set_name(e.target.value)}
+                // value={name}
+                onChange={(e) => onChangeName(e)}
               />
             </Form.Group>
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="formBasicSubject">
               <Form.Label>Please select a subject</Form.Label>
-              <select className="form-control">
+              <Form.Control as="select" onChange={(e) => onChangeSelect(e)}>
                 {subjects.map((subject) => {
                   return (
-                    <option value={subject} key={subject.id}>
+                    <option value={subject.name} key={subject.id}>
                       {subject.name}
                     </option>
                   );
                 })}
-              </select>
+              </Form.Control>
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -109,6 +118,34 @@ export default function MyNotebooksPage() {
       <div>
         <Button onClick={() => setModalShow(true)}>Add new notebook</Button>
       </div>
+
+      <div>
+        {/* <Form>
+          <Form.Group controlId="formBasicName">
+            <Form.Label>Please fill in a name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => set_name(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group controlId="formBasicSubject">
+            <Form.Label>Please select a subject</Form.Label>
+            <Form.Control as="select" onChange={onChangeSelect}>
+              {subjects.map((subject) => {
+                return (
+                  <option value={subject.name} key={subject.id}>
+                    {subject.name}
+                  </option>
+                );
+              })}
+            </Form.Control>
+          </Form.Group>
+          <Button onClick={submitNewNotebook}>Add new notebook</Button>
+        </Form> */}
+      </div>
+
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
