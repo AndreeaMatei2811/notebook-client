@@ -29,3 +29,29 @@ export function fetchAllNotebooks() {
     dispatch(appDoneLoading());
   };
 }
+
+export function addANote(notebookId, title, content) {
+  return {
+    type: "ADD_A_NOTE",
+    payload: { notebookId, title, content },
+  };
+}
+
+export function addNoteToNotebook(notebookId, title, content) {
+  console.log("did i get to addnotetonotebook");
+  return async function thunk(dispatch, getState) {
+    try {
+      const res = await axios.post(`${apiUrl}/notebooks/${notebookId}/notes`, {
+        notebookId,
+        title,
+        content,
+        typeOfNote: "textnote",
+        imageUrl: "",
+      });
+      console.log("response", res);
+      dispatch(addANote(notebookId, title, content));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+}

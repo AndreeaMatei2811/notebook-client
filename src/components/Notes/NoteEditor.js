@@ -3,23 +3,24 @@ import {
   EditorState,
   RichUtils,
   getDefaultKeyBinding,
-  convertFromRaw,
-  draftToHtml,
+  // convertFromRaw,
   convertToRaw,
 } from "draft-js";
 import "draft-js/dist/Draft.css";
 import { useRef, useState } from "react";
+import { Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { addNoteToNotebook } from "../../store/Notebooks/actions";
 import "./NoteEditor.scss";
 
 export default function RichEditorExample() {
+  const { notebookId } = useParams();
+  const dispatch = useDispatch();
   const editorRef = useRef(null);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-
-  function logState() {
-    console.log(editorState.toJS());
-  }
 
   function focus() {
     editorRef.current.focus();
@@ -62,43 +63,73 @@ export default function RichEditorExample() {
       className += " RichEditor-hidePlaceholder";
     }
   }
-  console.log("content state", convertToRaw(contentState));
-  const raw = convertToRaw(contentState);
-  const displayRaw = JSON.stringify(raw, null, 2);
 
-  console.log("state", editorState);
-  console.log("displayRaw", displayRaw);
+  const raw = convertToRaw(contentState);
+  const rawContent = JSON.stringify(raw, null, 2);
+
+  // console.log("displayRaw", rawContent);
+
+  const [noteTitle, setNoteTitle] = useState("");
+
+  function handleTitleChange(event) {
+    event.preventDefault();
+    setNoteTitle(event.target.value);
+  }
+
+  function onSaveButtonClick(title, content) {
+    console.log("this note:");
+    console.log("what is the title", title);
+    console.log("what is the content", content);
+    dispatch(addNoteToNotebook(notebookId, title, content));
+  }
 
   return (
-    <div className="RichEditor-root">
-      <BlockStyleControls
-        editorState={editorState}
-        onToggle={toggleBlockType}
-      />
-      <InlineStyleControls
-        editorState={editorState}
-        onToggle={toggleInlineStyle}
-      />
-      <div className={className} onClick={focus}>
-        <Editor
-          blockStyleFn={getBlockStyle}
-          customStyleMap={styleMap}
+    <div className="NoteEditor">
+      <div className="RichEditor-root">
+        <div className="NoteEditor-noteTitle">
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            maxlength="100"
+            placeholder="Note Title"
+            value={noteTitle}
+            onChange={handleTitleChange}
+          />
+        </div>
+        <BlockStyleControls
           editorState={editorState}
-          handleKeyCommand={handleKeyCommand}
-          keyBindingFn={mapKeyToEditorCommand}
-          onChange={setEditorState}
-          placeholder="Tell a story..."
-          ref={editorRef}
-          spellCheck={true}
+          onToggle={toggleBlockType}
         />
+        <InlineStyleControls
+          editorState={editorState}
+          onToggle={toggleInlineStyle}
+        />
+        <div className={className} onClick={focus}>
+          <Editor
+            blockStyleFn={getBlockStyle}
+            customStyleMap={styleMap}
+            editorState={editorState}
+            handleKeyCommand={handleKeyCommand}
+            keyBindingFn={mapKeyToEditorCommand}
+            onChange={setEditorState}
+            placeholder="Start typing your note..."
+            ref={editorRef}
+            spellCheck={true}
+          />
+        </div>
       </div>
-
-      {/* <input
-        onClick={logState}
-        // style={styles.button}
-        type="button"
-        value="Log State"
-      /> */}
+      <div className="saveNoteButton" style={{ margin: 20 }}>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            onSaveButtonClick(noteTitle, rawContent);
+          }}
+        >
+          Save Note
+        </Button>
+      </div>
     </div>
   );
 }
