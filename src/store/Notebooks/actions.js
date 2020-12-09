@@ -1,6 +1,6 @@
 import axios from "axios";
 import { apiUrl } from "../../config/constants";
-import { selectUser } from "../user/selectors";
+import { selectToken, selectUser } from "../user/selectors";
 import {
   appLoading,
   appDoneLoading,
@@ -40,14 +40,22 @@ export function addANote(notebookId, title, content) {
 export function addNoteToNotebook(notebookId, title, content) {
   console.log("did i get to addnotetonotebook");
   return async function thunk(dispatch, getState) {
+    const token = selectToken(getState());
+
     try {
-      const res = await axios.post(`${apiUrl}/notebooks/${notebookId}/notes`, {
-        notebookId,
-        title,
-        content,
-        typeOfNote: "textnote",
-        imageUrl: "",
-      });
+      const res = await axios.post(
+        `${apiUrl}/notebooks/${notebookId}/notes`,
+        {
+          notebookId,
+          title,
+          content,
+          typeOfNote: "textnote",
+          imageUrl: "",
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       console.log("response", res);
       dispatch(addANote(notebookId, title, content));
     } catch (error) {

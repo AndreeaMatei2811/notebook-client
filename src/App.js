@@ -40,28 +40,21 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/my-notebooks" component={MyNotebooksPage} />
         <Route path="/fellow-students" component={FellowStudents} />
-        <Route path="/notebook/:notebookId" component={NotebookPage} />
-        <Route exact path="/notebook/:notebookId/add" component={AddNotePage} />
+        {/* <Route path="/notebook/:notebookId" component={NotebookPage} /> */}
+        <Route path="/notebook/:notebookId/add" component={AddNotePage} />
         <Route
-          exact
           path="/notebook/:notebookId/textnotes"
           component={TextNotesPage}
         />
         <Route
-          exact
           path="/notebook/:notebookId/snippets"
           component={SnippetNotesPage}
         />
         <Route
-          exact
           path="/notebook/:notebookId/definitions"
           component={DefinitionNotesPage}
         />
-        <Route
-          exact
-          path="/notebook/:notebookId/images"
-          component={ImageNotesPage}
-        />
+        <Route path="/notebook/:notebookId/images" component={ImageNotesPage} />
       </Switch>
     </div>
   );
