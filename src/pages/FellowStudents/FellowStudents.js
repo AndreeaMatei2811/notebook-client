@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAllNotebooks } from "../../store/Notebooks/selectors";
 import { selectAllUsers } from "../../store/AllUsers/selectors";
 import Notebook from "../../components/notebook/Notebook";
+import UserCard from "../../components/UserCard/UserCard";
 
 import SwitchButton from "../../components/SwitchButton";
 
@@ -23,6 +24,10 @@ export default function FellowStudents() {
     dispatch(fetchAllNotebooks());
     dispatch(fetchAllUsers());
   }, [dispatch]);
+
+  useEffect(() => {
+    set_searchText("");
+  }, [buttonState]);
 
   if (searchText.length > 0 && buttonState) {
     filteredUsers = allUsers.filter((i) => {
@@ -44,8 +49,9 @@ export default function FellowStudents() {
         <input
           type="text"
           placeholder="search"
+          value={searchText}
           onChange={(e) => set_searchText(e.target.value.toLowerCase())}
-        ></input>
+        />
       </div>
       <div
         style={{
@@ -70,12 +76,12 @@ export default function FellowStudents() {
           ? filteredUsers.map((user) => {
               return (
                 <div key={user.id}>
-                  <Notebook
+                  <UserCard
                     type="User"
                     name={`${user.firstName} ${user.lastName}`}
                     imageUrl={user.imageUrl}
                     createdAt={new Date(user.createdAt).toDateString()}
-                  ></Notebook>
+                  ></UserCard>
                 </div>
               );
             })
@@ -84,8 +90,9 @@ export default function FellowStudents() {
                 <div key={notebook.id}>
                   <Notebook
                     type="Notebook"
-                    name={notebook.name}
-                    imageUrl={notebook.imageUrl}
+                    notebookName={notebook.name}
+                    userName={notebook.user.username}
+                    imageUrl={notebook.user.imageUrl}
                     createdAt={new Date(notebook.createdAt).toDateString()}
                   ></Notebook>
                 </div>
