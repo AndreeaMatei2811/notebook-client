@@ -26,7 +26,7 @@ export default function FellowStudents() {
 
   if (searchText.length > 0 && buttonState) {
     filteredUsers = allUsers.filter((i) => {
-      const firstNameWithoutCaps = i.firstName.toLowerCase();
+      const firstNameWithoutCaps = `${i.firstName.toLowerCase()} ${i.lastName.toLowerCase()}`;
       return firstNameWithoutCaps.match(searchText);
     });
   }
@@ -40,18 +40,25 @@ export default function FellowStudents() {
 
   return (
     <div>
-      <div>
+      <div style={{ position: "absolute", margin: "0px 15px" }}>
         <input
           type="text"
           placeholder="search"
           onChange={(e) => set_searchText(e.target.value.toLowerCase())}
         ></input>
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "10px",
+        }}
+      >
         <p>Users</p>
         <SwitchButton buttonState={buttonState} setButton={set_buttonState} />
         <p>Notebooks</p>
       </div>
+
       <div
         style={{
           display: "flex",
