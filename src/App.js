@@ -21,7 +21,6 @@ import SnippetNotesPage from "./pages/NotebookPage/SnippetNotesPage";
 import DefinitionNotesPage from "./pages/NotebookPage/DefinitionNotesPage";
 import ImageNotesPage from "./pages/NotebookPage/ImageNotesPage";
 
-
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
@@ -37,19 +36,32 @@ function App() {
       {isLoading ? <Loading /> : null}
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/my-notebooks" component={MyNotebooksPage} />
-        <Route path="/fellow-students" component={FellowStudents} />
-        <Route exact path="/notebook/:id" component={NotebookPage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
-        <Route path="/notebook/:id/add" component={AddNotePage} />
-        <Route path="/notebook/:id/textnotes" component={TextNotesPage} />
-        <Route path="/notebook/:id/snippets" component={SnippetNotesPage} />
+        <Route path="/my-notebooks" component={MyNotebooksPage} />
+        <Route path="/fellow-students" component={FellowStudents} />
+        <Route path="/notebook/:notebookId" component={NotebookPage} />
+        <Route exact path="/notebook/:notebookId/add" component={AddNotePage} />
         <Route
-          path="/notebook/:id/definitions"
+          exact
+          path="/notebook/:notebookId/textnotes"
+          component={TextNotesPage}
+        />
+        <Route
+          exact
+          path="/notebook/:notebookId/snippets"
+          component={SnippetNotesPage}
+        />
+        <Route
+          exact
+          path="/notebook/:notebookId/definitions"
           component={DefinitionNotesPage}
         />
-        <Route path="/notebook/:id/images" component={ImageNotesPage} />
+        <Route
+          exact
+          path="/notebook/:notebookId/images"
+          component={ImageNotesPage}
+        />
       </Switch>
     </div>
   );
