@@ -31,16 +31,19 @@ export const newNotebookSucces = (newNotebook) => ({
   payload: newNotebook,
 });
 
-export function newNotebook(name) {
+export function newNotebook(name, subjectId) {
+  console.log("got run action");
+  console.log("req", name, subjectId);
   return async (dispatch, getState) => {
     const { token } = selectToken(getState());
-
+    console.log("req", name, subjectId);
     dispatch(appLoading());
 
     const response = await axios.post(
       `${apiUrl}/notebooks`,
       {
         name,
+        subjectId,
       },
       {
         headers: {
