@@ -9,12 +9,18 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import HomePage from "./pages/HomePage/HomePage";
 import MyNotebooksPage from "./pages/MyNotebooksPage/MyNotebooksPage";
-
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import FellowStudents from "./pages/FellowStudents/FellowStudents";
+import NotebookPage from "./pages/NotebookPage/NotebookPage";
+import AddNotePage from "./pages/NotebookPage/AddNotePage";
+import TextNotesPage from "./pages/NotebookPage/TextNotesPage";
+import SnippetNotesPage from "./pages/NotebookPage/SnippetNotesPage";
+import DefinitionNotesPage from "./pages/NotebookPage/DefinitionNotesPage";
+import ImageNotesPage from "./pages/NotebookPage/ImageNotesPage";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -33,8 +39,17 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route path="/my-notebooks" component={MyNotebooksPage} />
         <Route path="/fellow-students" component={FellowStudents} />
+        <Route exact path="/notebook/:id" component={NotebookPage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
+        <Route path="/notebook/:id/add" component={AddNotePage} />
+        <Route path="/notebook/:id/textnotes" component={TextNotesPage} />
+        <Route path="/notebook/:id/snippets" component={SnippetNotesPage} />
+        <Route
+          path="/notebook/:id/definitions"
+          component={DefinitionNotesPage}
+        />
+        <Route path="/notebook/:id/images" component={ImageNotesPage} />
       </Switch>
     </div>
   );

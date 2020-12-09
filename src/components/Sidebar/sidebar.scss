@@ -1,0 +1,14 @@
+.sidebar {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 5px;
+  height: 100vh;
+
+  svg {
+    margin: 10px;
+  }
+}
