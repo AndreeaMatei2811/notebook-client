@@ -10,14 +10,14 @@ export default function Sidebar() {
       <IconButton
         aria-label="Add Note"
         component={RouterLink}
-        to="/notebook/1/add"
+        to="/notebook/24/add"
       >
         <NoteAdd />
       </IconButton>
       <IconButton
         aria-label="Text Notes"
         component={RouterLink}
-        to="/notebook/1/textnotes"
+        to="/notebook/24/textnotes"
       >
         <Note />
       </IconButton>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { apiUrl } from "../../config/constants";
-import { selectUser } from "../user/selectors";
+import { selectToken, selectUser } from "../user/selectors";
 import {
   appLoading,
   appDoneLoading,
@@ -26,6 +26,44 @@ export function fetchAllNotebooks() {
     const allNotebooks = res.data;
 
     dispatch(allNotebooksFetched(allNotebooks));
+    dispatch(appDoneLoading());
+  };
+}
+
+export function addANote(notebookId, title, content) {
+  return {
+    type: "ADD_A_NOTE",
+    payload: { notebookId, title, content },
+  };
+}
+
+export function addNoteToNotebook(notebookId, title, content, raw) {
+  console.log("did i get to addnotetonotebook");
+  return async function thunk(dispatch, getState) {
+    dispatch(appLoading());
+    const token = selectToken(getState());
+
+    try {
+      const res = await axios.post(
+        `${apiUrl}/notebooks/${notebookId}/notes`,
+        {
+          notebookId,
+          title,
+          content,
+          typeOfNote: "textnote",
+          imageUrl: "",
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("response", res);
+      dispatch(addANote(notebookId, title, content));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      console.error(error);
+      dispatch(appDoneLoading());
+    }
     dispatch(appDoneLoading());
   };
 }
