@@ -5,7 +5,8 @@ import { fetchAllUsers } from "../../store/AllUsers/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllNotebooks } from "../../store/Notebooks/selectors";
 import { selectAllUsers } from "../../store/AllUsers/selectors";
-import { Link } from "react-router-dom";
+import Notebook from "../../components/notebook/Notebook";
+
 import SwitchButton from "../../components/SwitchButton";
 
 export default function FellowStudents() {
@@ -13,14 +14,39 @@ export default function FellowStudents() {
   const allNotebooks = useSelector(selectAllNotebooks);
   const [buttonState, set_buttonState] = useState(true);
   const allUsers = useSelector(selectAllUsers);
+  const [searchText, set_searchText] = useState("");
+
+  let filteredUsers = allUsers;
+  let filteredNotebooks = allNotebooks;
 
   useEffect(() => {
     dispatch(fetchAllNotebooks());
     dispatch(fetchAllUsers());
   }, [dispatch]);
 
+  if (searchText.length > 0 && buttonState) {
+    filteredUsers = allUsers.filter((i) => {
+      const firstNameWithoutCaps = i.firstName.toLowerCase();
+      return firstNameWithoutCaps.match(searchText);
+    });
+  }
+
+  if (searchText.length > 0 && !buttonState) {
+    filteredNotebooks = allNotebooks.filter((i) => {
+      const nameWithoutCaps = i.name.toLowerCase();
+      return nameWithoutCaps.match(searchText);
+    });
+  }
+
   return (
     <div>
+      <div>
+        <input
+          type="text"
+          placeholder="search"
+          onChange={(e) => set_searchText(e.target.value.toLowerCase())}
+        ></input>
+      </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <p>Users</p>
         <SwitchButton buttonState={buttonState} setButton={set_buttonState} />
@@ -33,61 +59,29 @@ export default function FellowStudents() {
           justifyContent: "center",
         }}
       >
-        {" "}
         {buttonState
-          ? allUsers.map((user) => {
+          ? filteredUsers.map((user) => {
               return (
-                <Link key={user.id} to="/">
-                  <div
-                    style={{
-                      border: "1px solid black",
-                      width: "25vw",
-                      margin: "5px",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <p>{user.firstName}</p>
-                    <p>{user.lastName}</p>
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                      <img
-                        style={{
-                          width: "20px",
-                          height: "28px",
-                          borderRadius: "5px",
-                        }}
-                        src={user.imageUrl}
-                      ></img>
-                    </div>
-                  </div>
-                </Link>
+                <div key={user.id}>
+                  <Notebook
+                    type="User"
+                    name={`${user.firstName} ${user.lastName}`}
+                    imageUrl={user.imageUrl}
+                    createdAt={new Date(user.createdAt).toDateString()}
+                  ></Notebook>
+                </div>
               );
             })
-          : allNotebooks.map((notebooks) => {
+          : filteredNotebooks.map((notebook) => {
               return (
-                <Link key={notebooks.id} to="/">
-                  <div
-                    style={{
-                      border: "1px solid black",
-                      width: "25vw",
-                      margin: "5px",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <p>{notebooks.name}</p>
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                      <img
-                        style={{
-                          width: "20px",
-                          height: "28px",
-                          borderRadius: "5px",
-                        }}
-                        src={notebooks.user.imageUrl}
-                      ></img>
-                      <p>{notebooks.user.username}</p>
-                    </div>
-                    <p>{notebooks.createdAt}</p>
-                  </div>
-                </Link>
+                <div key={notebook.id}>
+                  <Notebook
+                    type="Notebook"
+                    name={notebook.name}
+                    imageUrl={notebook.imageUrl}
+                    createdAt={new Date(notebook.createdAt).toDateString()}
+                  ></Notebook>
+                </div>
               );
             })}
       </div>
