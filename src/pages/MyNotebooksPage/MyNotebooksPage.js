@@ -21,11 +21,15 @@ export default function MyNotebooksPage() {
   const myNotebooks = useSelector(selectMyNotebooks);
   const subjects = useSelector(selectAllSubjects);
 
+  let filteredNotebooks = myNotebooks;
+
   const [name, set_name] = useState("");
   const [subjectId, set_subjectId] = useState();
 
   const [open, setOpen] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+
+  const [searchText, set_searchText] = useState("");
 
   const handleClickOpen = () => {
     setOpenDialog(true);
@@ -68,6 +72,17 @@ export default function MyNotebooksPage() {
     set_subjectId();
   }
 
+  // useEffect(() => {
+  //   set_searchText("");
+  // }, [buttonState]);
+
+  if (searchText.length > 0) {
+    filteredNotebooks = myNotebooks.filter((i) => {
+      const nameWithoutCaps = i.name.toLowerCase();
+      return nameWithoutCaps.match(searchText);
+    });
+  }
+
   return (
     <div>
       <h3 className="align-self-center p-4">All my notebooks</h3>
@@ -78,6 +93,7 @@ export default function MyNotebooksPage() {
             type="text"
             placeholder="Search notebook"
             aria-label="Search"
+            onChange={(e) => set_searchText(e.target.value.toLowerCase())}
           />
         </form>
       </div>
@@ -93,35 +109,50 @@ export default function MyNotebooksPage() {
         >
           <DialogTitle id="form-dialog-title">Add new notebook</DialogTitle>
           <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Name"
-              type="text"
-              fullWidth
-              onChange={(e) => onChangeName(e)}
-            />
-
-            <InputLabel>Select Subject</InputLabel>
-            <Select
-              id="demo-controlled-open-select"
-              color="primary"
-              open={open}
-              onClose={handleClose}
-              onOpen={handleOpen}
-              defaultValue="Select Subject"
-              onChange={onChangeSelect}
+            <div
+              style={{
+                margin: 20,
+              }}
             >
-              <option value="Select Subject"></option>
-              {subjects.map((subject) => {
-                return (
-                  <option value={subject.name} key={subject.id}>
-                    {subject.name}
-                  </option>
-                );
-              })}
-            </Select>
+              <TextField
+                variant="outlined"
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Name"
+                type="text"
+                fullWidth
+                onChange={(e) => onChangeName(e)}
+              />
+            </div>
+
+            <div
+              style={{
+                margin: 20,
+              }}
+            >
+              <InputLabel>Select Subject</InputLabel>
+              <Select
+                variant="outlined"
+                fullWidth
+                id="demo-controlled-open-select"
+                color="primary"
+                open={open}
+                onClose={handleClose}
+                onOpen={handleOpen}
+                defaultValue="Select Subject"
+                onChange={onChangeSelect}
+              >
+                <option value="Select Subject"></option>
+                {subjects.map((subject) => {
+                  return (
+                    <option value={subject.name} key={subject.id}>
+                      {subject.name}
+                    </option>
+                  );
+                })}
+              </Select>
+            </div>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseDialog} color="primary">
@@ -134,11 +165,22 @@ export default function MyNotebooksPage() {
         </Dialog>
       </div>
 
-      <div>
-        {myNotebooks.map((notebook) => {
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
+        {filteredNotebooks.map((notebook) => {
           return (
             // <CardDeck>
-            <Notebook key={notebook.id} name={notebook.name} />
+            <Notebook
+              key={notebook.id}
+              type="Notebook"
+              notebookName={notebook.name}
+              createdAt={new Date(notebook.createdAt).toDateString()}
+            />
             // </CardDeck>
           );
         })}
