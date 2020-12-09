@@ -40,7 +40,6 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/my-notebooks" component={MyNotebooksPage} />
         <Route path="/fellow-students" component={FellowStudents} />
-        {/* <Route path="/notebook/:notebookId" component={NotebookPage} /> */}
         <Route path="/notebook/:notebookId/add" component={AddNotePage} />
         <Route
           path="/notebook/:notebookId/textnotes"
@@ -55,6 +54,7 @@ function App() {
           component={DefinitionNotesPage}
         />
         <Route path="/notebook/:notebookId/images" component={ImageNotesPage} />
+        <Route path="/notebook/:notebookId" component={NotebookPage} />
       </Switch>
     </div>
   );

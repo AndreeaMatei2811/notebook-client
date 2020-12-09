@@ -5,3 +5,7 @@ export const selectAllNotebooks = (state) => {
 export const selectNewNote = (state) => {
   return state.notebooks.noteToAdd;
 };
+
+export const selectNotebook = (state) => {
+  return state.notebooks.selectedNotebook;
+};

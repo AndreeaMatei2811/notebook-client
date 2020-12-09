@@ -30,15 +30,14 @@ export function fetchAllNotebooks() {
   };
 }
 
-export function addANote(notebookId, title, content) {
+const addANote = (notebookId, title, content) => {
   return {
     type: "ADD_A_NOTE",
     payload: { notebookId, title, content },
   };
-}
+};
 
 export function addNoteToNotebook(notebookId, title, content, raw) {
-  console.log("did i get to addnotetonotebook");
   return async function thunk(dispatch, getState) {
     dispatch(appLoading());
     const token = selectToken(getState());
@@ -65,5 +64,28 @@ export function addNoteToNotebook(notebookId, title, content, raw) {
       dispatch(appDoneLoading());
     }
     dispatch(appDoneLoading());
+  };
+}
+
+const selectNotebook = (notebook) => {
+  return {
+    type: "SELECT_NOTEBOOK",
+    payload: notebook,
+  };
+};
+
+export function fetchSelectedNotebook(notebookId) {
+  return async function thunk(dispatch, getState) {
+    dispatch(appLoading());
+
+    try {
+      const res = await axios.get(`${apiUrl}/notebooks/${notebookId}`);
+
+      dispatch(selectNotebook(res.data));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      console.error(error);
+      dispatch(appDoneLoading());
+    }
   };
 }
