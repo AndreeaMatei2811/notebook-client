@@ -92,7 +92,6 @@ export default function RichEditorExample() {
             id="name"
             name="name"
             required
-            maxlength="100"
             placeholder="Note Title"
             value={noteTitle}
             onChange={handleTitleChange}
