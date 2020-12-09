@@ -53,11 +53,13 @@ export function newNotebook(name, subjectId) {
         },
       }
     );
+
     dispatch(
       showMessageWithTimeout("success", false, response.data.message, 3000)
     );
 
-    dispatch(newNotebookSucces(response.data.newNotebook));
+    dispatch(newNotebookSucces(response.data));
+
     dispatch(appDoneLoading());
   };
 }

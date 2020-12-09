@@ -54,7 +54,7 @@ export default function MyNotebooksPage() {
   // console.log("subjectId", subjectId);
   // console.log("name", name);
   // console.log("subjects", subjects);
-  // console.log("my notebooks", myNotebooks);
+  console.log("my notebooks", myNotebooks);
 
   useEffect(() => {
     dispatch(fetchAllSubjects());
@@ -64,8 +64,8 @@ export default function MyNotebooksPage() {
     dispatch(newNotebook(name, subjectId));
     console.log("got run");
     setOpenDialog(false);
-    // set_name("");
-    // set_subjectId();
+    set_name("");
+    set_subjectId();
   }
 
   return (
