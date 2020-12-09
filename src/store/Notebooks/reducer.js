@@ -7,6 +7,7 @@ const initialState = {
     imageUrl: "",
     typeOfNote: "textnote",
   },
+  selectedNotebook: {},
 };
 
 export default function allNotebooksReducer(state = initialState, action) {
@@ -25,6 +26,12 @@ export default function allNotebooksReducer(state = initialState, action) {
           title: action.payload.title,
           content: action.payload.content,
         },
+      };
+
+    case "SELECT_NOTEBOOK":
+      return {
+        ...state,
+        selectedNotebook: { ...action.payload },
       };
 
     default: {
