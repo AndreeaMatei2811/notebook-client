@@ -35,7 +35,9 @@ export function newNotebook(name, subjectId) {
   console.log("got run action");
   console.log("req", name, subjectId);
   return async (dispatch, getState) => {
-    const { token } = selectToken(getState());
+    const token = selectToken(getState());
+    // console.log("token", token);
+
     console.log("req", name, subjectId);
     dispatch(appLoading());
 
@@ -51,11 +53,13 @@ export function newNotebook(name, subjectId) {
         },
       }
     );
+
     dispatch(
       showMessageWithTimeout("success", false, response.data.message, 3000)
     );
 
-    dispatch(newNotebookSucces(response.data.newNotebook));
+    dispatch(newNotebookSucces(response.data));
+
     dispatch(appDoneLoading());
   };
 }
