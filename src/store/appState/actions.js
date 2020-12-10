@@ -8,6 +8,8 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 export const appLoading = () => ({ type: APP_LOADING });
 export const appDoneLoading = () => ({ type: APP_DONE_LOADING });
 export const clearMessage = () => ({ type: CLEAR_MESSAGE });
+export const clearRedirect = () => ({ type: "CLEAR_REDIRECT" });
+export const setRedirect = () => ({ type: "REDIRECT" });
 
 export const setMessage = (variant, dismissable, text) => {
   return {

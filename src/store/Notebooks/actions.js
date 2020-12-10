@@ -4,8 +4,11 @@ import { selectToken, selectUser } from "../user/selectors";
 import {
   appLoading,
   appDoneLoading,
+  showMessageWithTimeout,
+  setRedirect,
   //   showMessageWithTimeout,
 } from "../appState/actions";
+import { useHistory } from "react-router-dom";
 
 export function allNotebooksFetched(allNotebooks) {
   return {
@@ -56,12 +59,20 @@ export function addNoteToNotebook(notebookId, title, content, typeOfNote) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("response", res);
+      console.log("response status", res.status);
+
       dispatch(addANote(notebookId, title, content));
       dispatch(appDoneLoading());
+      dispatch(
+        showMessageWithTimeout("success", false, "note saved successfully")
+      );
+      dispatch(setRedirect());
     } catch (error) {
       console.error(error);
       dispatch(appDoneLoading());
+      dispatch(
+        showMessageWithTimeout("danger", true, "something went wrong", 1500)
+      );
     }
     dispatch(appDoneLoading());
   };

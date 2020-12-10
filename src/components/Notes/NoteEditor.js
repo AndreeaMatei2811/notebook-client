@@ -7,14 +7,18 @@ import {
   convertToRaw,
 } from "draft-js";
 import "draft-js/dist/Draft.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import { clearRedirect } from "../../store/appState/actions";
+import { selectMessage, selectRedirect } from "../../store/appState/selectors";
 import { addNoteToNotebook } from "../../store/Notebooks/actions";
 import "./NoteEditor.scss";
 
 export default function RichEditorExample() {
+  const redirect = useSelector(selectRedirect);
+  const history = useHistory();
   const { notebookId } = useParams();
   const dispatch = useDispatch();
   const editorRef = useRef(null);
@@ -71,9 +75,12 @@ export default function RichEditorExample() {
   // console.log("normal raw", raw);
   // console.log("rawcontent", rawContent);
 
-  // // console.log("displayRaw", rawContent);
+  if (redirect) {
+    history.push(`/notebook/${notebookId}`);
+    dispatch(clearRedirect());
+  }
 
-  const [noteTitle, setNoteTitle] = useState("");
+  const [noteTitle, setNoteTitle] = useState(null);
   const [typeOfNote, setTypeOfNote] = useState("textnote");
 
   function handleTitleChange(event) {
