@@ -2,38 +2,50 @@ import React, { useState } from "react";
 
 import { Button, Col } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../../store/user/selectors";
-// import { updatePassword, updateProfile } from "../../store/user/actions";
+import { useDispatch } from "react-redux";
+import { postProfilePic } from "../../store/user/actions";
+import { updatePassword, updateProfile } from "../../store/user/actions";
 
 export default function UpdateProfileForm() {
-  const user = useSelector(selectUser);
-  const [imageUrl, setImageUrl] = useState(user.imageUrl);
-  const [username, setUsername] = useState(user.username);
-  const [firstName, setFirstName] = useState(user.firstName);
-  const [lastName, setLastName] = useState(user.lastName);
-  const [email, setEmail] = useState(user.email);
+  const [imageUrl, setImageUrl] = useState("");
+  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
   const [editForm, setEditForm] = useState(false);
   const [editPassword, setEditPassword] = useState(false);
   const dispatch = useDispatch();
 
+  //   console.log("first name", firstName);
+  //   console.log("lastName", lastName);
+  //   console.log("userName", username);
+
+  const hiddenFileInput = React.useRef(null);
+
+  const handleImgClick = (event) => {
+    hiddenFileInput.current.click();
+  };
+
+  const handleFileInputChange = async (event) => {
+    const file = event.target.files[0];
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "notebookapp");
+
+    dispatch(postProfilePic(data));
+  };
+
   function submitForm(event) {
     event.preventDefault();
-
-    // dispatch(
-    //   updateProfile(username, firstName, lastName, imageUrl, email)
-    // );
-
+    dispatch(updateProfile(username, firstName, lastName, email));
     setEditForm(false);
   }
 
   function submitNewPassword(event) {
     event.preventDefault();
-
-    // dispatch(updatePassword(password));
-
+    dispatch(updatePassword(password));
     setEditPassword(false);
   }
 
@@ -105,6 +117,14 @@ export default function UpdateProfileForm() {
                 type="text"
                 placeholder="Image url"
               />
+              <input
+                accept="image/*"
+                ref={hiddenFileInput}
+                type="file"
+                style={{ display: "none" }}
+                onChange={handleFileInputChange}
+              />
+              <Button onClick={handleImgClick}>Change picture</Button>
             </Form.Group>
             <Form.Group className="mt-5">
               <Button variant="primary" type="submit" onClick={submitForm}>

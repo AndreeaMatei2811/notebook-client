@@ -155,25 +155,19 @@ const updateSuccess = (updateUser) => {
   };
 };
 
-export const updateProfile = (
-  firstName,
-  lastName,
-  username,
-  imageUrl,
-  email
-) => {
+export const updateProfile = (firstName, lastName, username, email) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     const token = selectToken(getState());
 
     try {
       const response = await axios.patch(
-        `${apiUrl}/user`,
+        `${apiUrl}/users/update-user`,
         {
           firstName,
           lastName,
           username,
-          imageUrl,
+
           email,
         },
         {
@@ -197,6 +191,50 @@ export const updateProfile = (
   };
 };
 
+export const updateProfilePic = (imageUrl) => {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+
+    try {
+      const res = await axios.patch(
+        `${apiUrl}/users/update-picture`,
+        {
+          imageUrl,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const postProfilePic = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dayvqdldr/image/upload",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      console.log("what is response", res);
+
+      const image = await res.json();
+
+      const imageUrl = image.secure_url;
+
+      console.log("imageurl", imageUrl);
+      dispatch(updateProfilePic(imageUrl));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 const updatePasswordSuccess = (updateUserPassword) => {
   return {
     type: "updatePassword",
@@ -211,7 +249,7 @@ export const updatePassword = (password) => {
 
     try {
       const response = await axios.patch(
-        `${apiUrl}/user/password`,
+        `${apiUrl}/users/update-password`,
         {
           password,
         },
