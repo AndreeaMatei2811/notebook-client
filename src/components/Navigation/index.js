@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectToken } from "../../store/user/selectors";
 
-import NavbarItem from "./NavBarItem";
+import NavbarItem from "./NavbarItem";
 
 import LoggedIn from "./LoggedIn";
 import LoggedOut from "./LoggedOut";

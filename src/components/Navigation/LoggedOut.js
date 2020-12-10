@@ -1,7 +1,6 @@
 import React from "react";
 
-import NavbarItem from "./NavBarItem";
-
+import NavbarItem from "./NavbarItem";
 
 export default function LoggedOut() {
   return (

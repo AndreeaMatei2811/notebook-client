@@ -20,6 +20,7 @@ import TextNotesPage from "./pages/NotebookPage/TextNotesPage";
 import SnippetNotesPage from "./pages/NotebookPage/SnippetNotesPage";
 import DefinitionNotesPage from "./pages/NotebookPage/DefinitionNotesPage";
 import ImageNotesPage from "./pages/NotebookPage/ImageNotesPage";
+import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ function App() {
         />
         <Route path="/notebook/:notebookId/images" component={ImageNotesPage} />
         <Route path="/notebook/:notebookId" component={NotebookPage} />
+        <Route path="/my-profile" component={UserProfilePage} />
       </Switch>
     </div>
   );
