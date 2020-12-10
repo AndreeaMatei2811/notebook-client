@@ -17,7 +17,7 @@ export default function ShowNotebook() {
 
   useEffect(() => {
     dispatch(fetchSelectedNotebook(notebookId));
-  }, [dispatch]);
+  }, [dispatch, notebookId]);
 
   //filtering logic
   useEffect(() => {
