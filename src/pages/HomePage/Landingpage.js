@@ -1,17 +1,28 @@
-import { Button } from "@material-ui/core";
+import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import React from "react";
+import "./Landingpage.scss";
+import notebookimage from "./IMG_0191.PNG";
 
 export default function Landingpage() {
   return (
-    <div className="landingpage">
-      <div className="container">
-        <h1>Welcome to your notebook!</h1>
-        <h4>Sign up and never lose your notes again!</h4>
-        <Button>Sign Up</Button>
-        <Button>Sign In</Button>
-        <p>if you already have an account</p>
-      </div>
-      <h1>welcome!</h1>
-    </div>
+    <Paper style={{ height: "100vh" }}>
+      <Grid container className="landingpage" alignContent="center">
+        <Grid item md={2}></Grid>
+        <Grid item md={4}>
+          <Typography color="primary" variant="h1" align="left">
+            Your perfect Notebook..
+          </Typography>
+          <Typography variant="subtitle1" align="left">
+            Get started and never lose your notes again!
+          </Typography>
+          <Button>Sign Up</Button>
+          <Button>Sign In</Button>
+        </Grid>
+        <Grid item md={4}>
+          <img src={notebookimage} alt="notebook" width="400px" />
+        </Grid>
+        <Grid item md={2}></Grid>
+      </Grid>
+    </Paper>
   );
 }

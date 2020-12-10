@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
-
 import { Switch, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Loading from "./components/Loading";
@@ -15,14 +14,11 @@ import { getUserWithStoredToken } from "./store/user/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import FellowStudents from "./pages/FellowStudents/FellowStudents";
 import TextNotesPage from "./pages/NotebookPage/TextNotesPage";
-
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
-
 import ShowNotebook from "./pages/ShowNotebook/ShowNotebook";
 import ShowStudent from "./pages/ShowStudent/ShowStudent";
 import Landingpage from "./pages/HomePage/Landingpage";
 import { IconButton, MuiThemeProvider, Paper } from "@material-ui/core";
-
 import Brightness2Icon from "@material-ui/icons/Brightness2";
 import { createMuiTheme } from "@material-ui/core/styles/";
 
@@ -56,6 +52,9 @@ function App() {
         fontFamily: "Source Sans Pro",
       },
       fontFamily: "Source Sans Pro",
+      subtitle1: {
+        fontFamily: "Architects Daughter",
+      },
     },
   });
 
