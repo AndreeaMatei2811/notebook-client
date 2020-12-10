@@ -81,6 +81,7 @@ export default function FellowStudents() {
                     name={`${user.firstName} ${user.lastName}`}
                     imageUrl={user.imageUrl}
                     createdAt={new Date(user.createdAt).toDateString()}
+                    studentId={user.id}
                   ></UserCard>
                 </div>
               );
@@ -94,6 +95,7 @@ export default function FellowStudents() {
                     userName={notebook.user.username}
                     imageUrl={notebook.user.imageUrl}
                     createdAt={new Date(notebook.createdAt).toDateString()}
+                    notebookId={notebook.id}
                   ></Notebook>
                 </div>
               );

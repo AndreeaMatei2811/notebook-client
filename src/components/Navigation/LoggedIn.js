@@ -15,7 +15,11 @@ export default function LoggedIn() {
       <Nav.Item style={{ padding: ".5rem 1rem" }}>{user.email}</Nav.Item>
       <NavbarItem path="/my-notebooks" linkText="My notebooks" />
       <NavbarItem path="/fellow-students" linkText="Fellow students" />
+
       <NavbarItem path="/my-profile" linkText="My profile" />
+
+      <NavbarItem path="/show-notebook" linkText="Show notebook" />
+
       <Button onClick={() => dispatch(logOut())}>Logout</Button>
     </>
   );

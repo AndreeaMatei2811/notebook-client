@@ -180,6 +180,7 @@ export default function MyNotebooksPage() {
               type="Notebook"
               notebookName={notebook.name}
               createdAt={new Date(notebook.createdAt).toDateString()}
+              notebookId={notebook.id}
             />
             // </CardDeck>
           );

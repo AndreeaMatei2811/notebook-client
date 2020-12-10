@@ -7,14 +7,18 @@ import {
   convertToRaw,
 } from "draft-js";
 import "draft-js/dist/Draft.css";
-import { useRef, useState } from "react";
-import { Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Button, Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import { clearRedirect } from "../../store/appState/actions";
+import { selectMessage, selectRedirect } from "../../store/appState/selectors";
 import { addNoteToNotebook } from "../../store/Notebooks/actions";
 import "./NoteEditor.scss";
 
 export default function RichEditorExample() {
+  const redirect = useSelector(selectRedirect);
+  const history = useHistory();
   const { notebookId } = useParams();
   const dispatch = useDispatch();
   const editorRef = useRef(null);
@@ -66,25 +70,30 @@ export default function RichEditorExample() {
 
   const raw = convertToRaw(contentState);
   const rawContent = JSON.stringify(raw);
-  const backToRaw = JSON.parse(rawContent);
-  console.log("backtoraw", backToRaw);
-  console.log("normal raw", raw);
-  console.log("rawcontent", rawContent);
+  // const backToRaw = JSON.parse(rawContent);
+  // console.log("backtoraw", backToRaw);
+  // console.log("normal raw", raw);
+  // console.log("rawcontent", rawContent);
 
-  // console.log("displayRaw", rawContent);
+  if (redirect) {
+    history.push(`/notebook/${notebookId}`);
+    dispatch(clearRedirect());
+  }
 
-  const [noteTitle, setNoteTitle] = useState("");
+  const [noteTitle, setNoteTitle] = useState(null);
+  const [typeOfNote, setTypeOfNote] = useState("textnote");
 
   function handleTitleChange(event) {
     event.preventDefault();
     setNoteTitle(event.target.value);
   }
 
-  function onSaveButtonClick(title, content) {
-    console.log("this note:");
-    console.log("what is the title", title);
-    console.log("what is the content", content);
-    dispatch(addNoteToNotebook(notebookId, title, content));
+  function onTypeChange(event) {
+    setTypeOfNote(event.target.value);
+  }
+
+  function onSaveButtonClick(title, content, typeOfNote) {
+    dispatch(addNoteToNotebook(notebookId, title, content, typeOfNote));
   }
 
   return (
@@ -123,11 +132,28 @@ export default function RichEditorExample() {
           />
         </div>
       </div>
+      <div className="typeOfNoteControl">
+        <Form.Group controlId="exampleForm.SelectCustomSizeSm">
+          <Form.Label>Type of note</Form.Label>
+          <Form.Control
+            value={typeOfNote}
+            as="select"
+            size="sm"
+            custom
+            onChange={onTypeChange}
+          >
+            <option value="textnote">Textnote</option>
+            <option value="snippet">Snippet</option>
+            <option value="definition">Definition</option>
+            <option value="stepbystep">Step by step</option>
+          </Form.Control>
+        </Form.Group>
+      </div>
       <div className="saveNoteButton" style={{ margin: 20 }}>
         <Button
           variant="secondary"
           onClick={() => {
-            onSaveButtonClick(noteTitle, rawContent);
+            onSaveButtonClick(noteTitle, rawContent, typeOfNote);
           }}
         >
           Save Note

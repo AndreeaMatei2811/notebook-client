@@ -8,6 +8,7 @@ import {
 const initialState = {
   loading: false,
   message: null,
+  redirect: false,
 };
 
 export default function appState(state = initialState, action) {
@@ -23,6 +24,12 @@ export default function appState(state = initialState, action) {
 
     case CLEAR_MESSAGE:
       return { ...state, message: null };
+
+    case "REDIRECT":
+      return { ...state, redirect: true };
+
+    case "CLEAR_REDIRECT":
+      return { ...state, redirect: false };
 
     default:
       return state;
