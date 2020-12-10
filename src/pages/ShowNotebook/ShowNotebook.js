@@ -41,7 +41,7 @@ export default function ShowNotebook() {
   return (
     <div className="notebook">
       <div className="side">
-        <SidebarShowNotes setFilter={set_filter} />
+        <SidebarShowNotes setFilter={set_filter} notebookId={notebookId} />
       </div>
       <div style={{ width: " 100%" }}>
         <div className="main">
@@ -50,7 +50,6 @@ export default function ShowNotebook() {
             subheader={`Notebook owner: ${specificNotebook.user?.firstName} ${specificNotebook.user?.lastName}`}
           />
         </div>
-
         <div style={{ margin: "10px" }}>
           {sortedNotesByDate?.map((note, i) => {
             return (
