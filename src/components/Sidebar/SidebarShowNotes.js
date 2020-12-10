@@ -15,8 +15,7 @@ export default function SidebarShowNotes({ setFilter, notebookId }) {
       {userNotebooks.includes(notebookId) ? (
         <IconButton
           aria-label="Add Note"
-          component={RouterLink}
-          to={`/show-notebook/${notebookId}/add`}
+          onClick={(e) => setFilter("showNoteEditor")}
         >
           <NoteAdd />
         </IconButton>

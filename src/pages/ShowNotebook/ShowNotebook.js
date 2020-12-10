@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSelectedNotebook } from "../../store/Notebooks/actions";
 import { selectNotebook } from "../../store/Notebooks/selectors";
 import { useParams } from "react-router-dom";
-import AddNotePage from "../NotebookPage/AddNotePage";
 import NoteEditor from "../../components/Notes/NoteEditor";
 
 export default function ShowNotebook() {
@@ -51,22 +50,24 @@ export default function ShowNotebook() {
             header={specificNotebook.name}
             subheader={`Notebook owner: ${specificNotebook.user?.firstName} ${specificNotebook.user?.lastName}`}
           />
-
+        </div>
+        {filter === "showNoteEditor" ? (
           <NoteEditor />
-        </div>
-        <div style={{ margin: "10px" }}>
-          {sortedNotesByDate?.map((note, i) => {
-            return (
-              <NoteFeed
-                key={i}
-                title={note.title}
-                content={note.content}
-                date={note.createdAt}
-                type={note.typeOfNote}
-              />
-            );
-          })}
-        </div>
+        ) : (
+          <div style={{ margin: "10px" }}>
+            {sortedNotesByDate?.map((note, i) => {
+              return (
+                <NoteFeed
+                  key={i}
+                  title={note.title}
+                  content={note.content}
+                  date={note.createdAt}
+                  type={note.typeOfNote}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

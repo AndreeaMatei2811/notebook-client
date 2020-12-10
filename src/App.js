@@ -14,12 +14,7 @@ import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import FellowStudents from "./pages/FellowStudents/FellowStudents";
-import NotebookPage from "./pages/NotebookPage/NotebookPage";
-import AddNotePage from "./pages/NotebookPage/AddNotePage";
 import TextNotesPage from "./pages/NotebookPage/TextNotesPage";
-import SnippetNotesPage from "./pages/NotebookPage/SnippetNotesPage";
-import DefinitionNotesPage from "./pages/NotebookPage/DefinitionNotesPage";
-import ImageNotesPage from "./pages/NotebookPage/ImageNotesPage";
 
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
 
@@ -45,23 +40,13 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/my-notebooks" component={MyNotebooksPage} />
         <Route path="/fellow-students" component={FellowStudents} />
-        <Route path="/show-notebook/:notebookId/add" component={AddNotePage} />
+
         <Route path="/show-notebook/:notebookId" component={ShowNotebook} />
         <Route path="/notebook/student/:studentId" component={ShowStudent} />
         <Route
           path="/notebook/:notebookId/textnotes"
           component={TextNotesPage}
         />
-        <Route
-          path="/notebook/:notebookId/snippets"
-          component={SnippetNotesPage}
-        />
-        <Route
-          path="/notebook/:notebookId/definitions"
-          component={DefinitionNotesPage}
-        />
-        <Route path="/notebook/:notebookId/images" component={ImageNotesPage} />
-        <Route path="/notebook/:notebookId" component={NotebookPage} />
         <Route path="/my-profile" component={UserProfilePage} />
       </Switch>
     </div>
