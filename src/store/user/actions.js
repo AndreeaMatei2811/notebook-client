@@ -147,3 +147,93 @@ export const getUserWithStoredToken = () => {
     }
   };
 };
+
+const updateSuccess = (updateUser) => {
+  return {
+    type: "updateProfile",
+    payload: updateUser,
+  };
+};
+
+export const updateProfile = (
+  firstName,
+  lastName,
+  username,
+  imageUrl,
+  email
+) => {
+  return async (dispatch, getState) => {
+    dispatch(appLoading());
+    const token = selectToken(getState());
+
+    try {
+      const response = await axios.patch(
+        `${apiUrl}/user`,
+        {
+          firstName,
+          lastName,
+          username,
+          imageUrl,
+          email,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      dispatch(updateSuccess(response.data));
+      dispatch(showMessageWithTimeout("success", true, "Profile updated."));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setMessage("danger", true, error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setMessage("danger", true, error.message));
+      }
+      dispatch(appDoneLoading());
+    }
+  };
+};
+
+const updatePasswordSuccess = (updateUserPassword) => {
+  return {
+    type: "updatePassword",
+    payload: updateUserPassword,
+  };
+};
+
+export const updatePassword = (password) => {
+  return async (dispatch, getState) => {
+    dispatch(appLoading());
+    const token = selectToken(getState());
+
+    try {
+      const response = await axios.patch(
+        `${apiUrl}/user/password`,
+        {
+          password,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      dispatch(updatePasswordSuccess(response.data));
+      dispatch(
+        showMessageWithTimeout("success", true, "Password succesfully updated.")
+      );
+      dispatch(appDoneLoading());
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setMessage("danger", true, error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setMessage("danger", true, error.message));
+      }
+      dispatch(appDoneLoading());
+    }
+  };
+};
