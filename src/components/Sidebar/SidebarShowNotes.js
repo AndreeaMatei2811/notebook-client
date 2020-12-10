@@ -1,16 +1,26 @@
 import { IconButton } from "@material-ui/core";
 import { Book, Code, Image, Note, NoteAdd, ViewList } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 import CancelIcon from "@material-ui/icons/Cancel";
 import React from "react";
 import "./sidebar.scss";
 import { Link as RouterLink } from "react-router-dom";
+import { selectMyNotebooksIds } from "../../store/user/selectors";
 
-export default function SidebarShowNotes({ setFilter }) {
-  const setFilterOnClick = (filter) => {
-    setFilter();
-  };
+export default function SidebarShowNotes({ setFilter, notebookId }) {
+  const userNotebooks = useSelector(selectMyNotebooksIds);
+
   return (
     <div className="sidebar">
+      {userNotebooks.includes(notebookId) ? (
+        <IconButton
+          aria-label="Add Note"
+          component={RouterLink}
+          to="/notebook/24/add"
+        >
+          <NoteAdd />
+        </IconButton>
+      ) : null}
       <IconButton aria-label="Text Notes" onClick={(e) => setFilter("")}>
         <CancelIcon />
       </IconButton>
