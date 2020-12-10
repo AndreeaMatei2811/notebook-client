@@ -26,7 +26,6 @@ import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
 import ShowNotebook from "./pages/ShowNotebook/ShowNotebook";
 import ShowStudent from "./pages/ShowStudent/ShowStudent";
 
-
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
@@ -46,8 +45,8 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/my-notebooks" component={MyNotebooksPage} />
         <Route path="/fellow-students" component={FellowStudents} />
+        <Route path="/show-notebook/:notebookId/add" component={AddNotePage} />
         <Route path="/show-notebook/:notebookId" component={ShowNotebook} />
-        <Route path="/notebook/:notebookId/add" component={AddNotePage} />
         <Route path="/notebook/student/:studentId" component={ShowStudent} />
         <Route
           path="/notebook/:notebookId/textnotes"

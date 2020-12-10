@@ -16,7 +16,7 @@ export default function SidebarShowNotes({ setFilter, notebookId }) {
         <IconButton
           aria-label="Add Note"
           component={RouterLink}
-          to="/notebook/24/add"
+          to={`/show-notebook/${notebookId}/add`}
         >
           <NoteAdd />
         </IconButton>

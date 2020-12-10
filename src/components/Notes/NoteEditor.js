@@ -76,7 +76,7 @@ export default function RichEditorExample() {
   // console.log("rawcontent", rawContent);
 
   if (redirect) {
-    history.push(`/notebook/${notebookId}`);
+    history.push(`/show-notebook/${notebookId}`);
     dispatch(clearRedirect());
   }
 
