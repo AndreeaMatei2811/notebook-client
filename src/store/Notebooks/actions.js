@@ -37,7 +37,7 @@ const addANote = (notebookId, title, content) => {
   };
 };
 
-export function addNoteToNotebook(notebookId, title, content, raw) {
+export function addNoteToNotebook(notebookId, title, content, typeOfNote) {
   return async function thunk(dispatch, getState) {
     dispatch(appLoading());
     const token = selectToken(getState());
@@ -49,7 +49,7 @@ export function addNoteToNotebook(notebookId, title, content, raw) {
           notebookId,
           title,
           content,
-          typeOfNote: "textnote",
+          typeOfNote,
           imageUrl: "",
         },
         {
