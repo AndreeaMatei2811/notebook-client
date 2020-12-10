@@ -16,7 +16,11 @@ export default function UserProfilePage() {
       <h3>Your Profile</h3>
       <div>
         <div>
-          <img src={user.imageUrl} alt="profile img" />
+          <img
+            src={user.imageUrl}
+            alt="profile img"
+            style={{ width: 100, height: 110 }}
+          />
         </div>
         <div>
           <table style={{ width: "30rem" }}>

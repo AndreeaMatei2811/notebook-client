@@ -32,6 +32,9 @@ export default function user(state = initialState, action) {
     case "updateProfile":
       return { ...state, ...action.payload };
 
+    case "updateProfilePicture":
+      return { ...state, ...action.payload };
+
     case "updatePassword":
       return { ...state, ...action.payload };
 
