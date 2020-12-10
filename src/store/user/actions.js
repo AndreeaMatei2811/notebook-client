@@ -147,3 +147,131 @@ export const getUserWithStoredToken = () => {
     }
   };
 };
+
+const updateSuccess = (updateUser) => {
+  return {
+    type: "updateProfile",
+    payload: updateUser,
+  };
+};
+
+export const updateProfile = (firstName, lastName, username, email) => {
+  return async (dispatch, getState) => {
+    dispatch(appLoading());
+    const token = selectToken(getState());
+
+    try {
+      const response = await axios.patch(
+        `${apiUrl}/users/update-user`,
+        {
+          firstName,
+          lastName,
+          username,
+
+          email,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      dispatch(updateSuccess(response.data));
+      dispatch(showMessageWithTimeout("success", true, "Profile updated."));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setMessage("danger", true, error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setMessage("danger", true, error.message));
+      }
+      dispatch(appDoneLoading());
+    }
+  };
+};
+
+export const updateProfilePic = (imageUrl) => {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+
+    try {
+      const res = await axios.patch(
+        `${apiUrl}/users/update-picture`,
+        {
+          imageUrl,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const postProfilePic = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dayvqdldr/image/upload",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      console.log("what is response", res);
+
+      const image = await res.json();
+
+      const imageUrl = image.secure_url;
+
+      console.log("imageurl", imageUrl);
+      dispatch(updateProfilePic(imageUrl));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const updatePasswordSuccess = (updateUserPassword) => {
+  return {
+    type: "updatePassword",
+    payload: updateUserPassword,
+  };
+};
+
+export const updatePassword = (password) => {
+  return async (dispatch, getState) => {
+    dispatch(appLoading());
+    const token = selectToken(getState());
+
+    try {
+      const response = await axios.patch(
+        `${apiUrl}/users/update-password`,
+        {
+          password,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      dispatch(updatePasswordSuccess(response.data));
+      dispatch(
+        showMessageWithTimeout("success", true, "Password succesfully updated.")
+      );
+      dispatch(appDoneLoading());
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setMessage("danger", true, error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setMessage("danger", true, error.message));
+      }
+      dispatch(appDoneLoading());
+    }
+  };
+};
