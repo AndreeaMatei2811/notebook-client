@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 export default function Notebook({
   type,
@@ -7,7 +8,14 @@ export default function Notebook({
   imageUrl,
   createdAt,
   userName,
+  notebookId,
 }) {
+  const history = useHistory();
+
+  const onClickRedirect = () => {
+    history.push(`/show-notebook/${notebookId}`);
+  };
+
   return (
     <Card
       bg="Light"
@@ -27,7 +35,11 @@ export default function Notebook({
             ) : null}
             {userName}
           </div>
-          <Button style={{ margin: "10px" }} size="sm">
+          <Button
+            onClick={() => onClickRedirect()}
+            style={{ margin: "10px" }}
+            size="sm"
+          >
             Check out {`${type}`}
           </Button>
         </Card.Text>

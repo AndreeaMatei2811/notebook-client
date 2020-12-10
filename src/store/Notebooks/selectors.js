@@ -9,3 +9,7 @@ export const selectNewNote = (state) => {
 export const selectNotebook = (state) => {
   return state.notebooks.selectedNotebook;
 };
+
+export const selectStudentNotebooks = (state) => {
+  return state.notebooks.studentNotebooks;
+};

@@ -1,7 +1,20 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
-export default function UserCard({ type, name, imageUrl, createdAt }) {
+export default function UserCard({
+  type,
+  name,
+  imageUrl,
+  createdAt,
+  studentId,
+}) {
+  const history = useHistory();
+
+  const onClickRedirect = () => {
+    history.push(`/notebook/student/${studentId}`);
+  };
+
   return (
     <Card
       bg="Light"
@@ -20,7 +33,9 @@ export default function UserCard({ type, name, imageUrl, createdAt }) {
           ) : null}
           {createdAt}
         </Card.Text>
-        <Button variant="primary">Check out {`${type}`}</Button>
+        <Button onClick={() => onClickRedirect()} variant="primary">
+          Check out {`${type}`}
+        </Button>
       </Card.Body>
       <Card.Footer style={{ height: "1rem", fontSize: "12px" }}>
         <div style={{ marginTop: "-10px" }}>{createdAt}</div>
