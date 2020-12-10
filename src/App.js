@@ -21,6 +21,7 @@ import SnippetNotesPage from "./pages/NotebookPage/SnippetNotesPage";
 import DefinitionNotesPage from "./pages/NotebookPage/DefinitionNotesPage";
 import ImageNotesPage from "./pages/NotebookPage/ImageNotesPage";
 import ShowNotebook from "./pages/ShowNotebook/ShowNotebook";
+import ShowStudent from "./pages/ShowStudent/ShowStudent";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
         <Route path="/fellow-students" component={FellowStudents} />
         <Route path="/show-notebook/:notebookId" component={ShowNotebook} />
         <Route path="/notebook/:notebookId/add" component={AddNotePage} />
+        <Route path="/notebook/student/:studentId" component={ShowStudent} />
         <Route
           path="/notebook/:notebookId/textnotes"
           component={TextNotesPage}

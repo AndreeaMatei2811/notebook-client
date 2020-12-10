@@ -59,7 +59,6 @@ export function addNoteToNotebook(notebookId, title, content, typeOfNote) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("response status", res.status);
 
       dispatch(addANote(notebookId, title, content));
       dispatch(appDoneLoading());
@@ -88,9 +87,12 @@ const selectNotebook = (notebook) => {
 export function fetchSelectedNotebook(notebookId) {
   return async function thunk(dispatch, getState) {
     dispatch(appLoading());
+    const token = selectToken(getState());
 
     try {
-      const res = await axios.get(`${apiUrl}/notebooks/${notebookId}`);
+      const res = await axios.get(`${apiUrl}/notebooks/${notebookId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       dispatch(selectNotebook(res.data));
       dispatch(appDoneLoading());
@@ -100,3 +102,31 @@ export function fetchSelectedNotebook(notebookId) {
     }
   };
 }
+
+export function fetchStudentNotebooks(studentId) {
+  return async function thunk(dispatch, getState) {
+    dispatch(appLoading());
+    const token = selectToken(getState());
+    try {
+      const res = await axios.get(
+        `${apiUrl}/notebooks/student/${studentId}`,
+
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      dispatch(selectStudentNotebook(res.data));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      console.error(error);
+      dispatch(appDoneLoading());
+    }
+  };
+}
+
+const selectStudentNotebook = (notebooks) => {
+  return {
+    type: "STUDENT_NOTEBOOK",
+    payload: notebooks,
+  };
+};
