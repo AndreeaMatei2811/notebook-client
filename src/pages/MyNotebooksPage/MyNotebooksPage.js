@@ -116,25 +116,30 @@ export default function MyNotebooksPage() {
 
   return (
     <div className="my-notebooks">
-      <Typography variant="h3">My notebooks</Typography>
+      <Typography align="center" color="primary" variant="h3">
+        My notebooks
+      </Typography>
 
       <div>
-        <FormControl>
-          {/* <Input
-            style={{
-              margin: 20,
-            }} */}
-
+        <div
+          style={{
+            display: "flex",
+            position: "relative",
+            margin: "0px 15px",
+            alignItems: "center",
+          }}
+        >
           <div
             style={{
               display: "flex",
               border: "1px solid rgb(228, 228, 228)",
-              borderRadius: "15px",
+              borderRadius: "5px",
               height: "30px",
               paddingLeft: "8px",
-              position: "fixed",
-              top: "15px",
-              left: "50px",
+              paddingTop: "2px",
+              position: "relative",
+              top: "0px",
+              left: "0vw",
             }}
           >
             <div>
@@ -148,20 +153,20 @@ export default function MyNotebooksPage() {
               onChange={(e) => set_searchText(e.target.value.toLowerCase())}
             />
           </div>
-        </FormControl>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleClickOpen}
+            style={{
+              margin: 20,
+            }}
+          >
+            Add new notebook
+          </Button>
+        </div>
       </div>
 
       <div>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleClickOpen}
-          style={{
-            margin: 20,
-          }}
-        >
-          Add new notebook
-        </Button>
         <Dialog
           fullWidth
           maxWidth="sm"

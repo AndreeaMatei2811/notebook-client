@@ -10,6 +10,15 @@ import UserCard from "../../components/UserCard/UserCard";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import SwitchButton from "../../components/SwitchButton";
+import {
+  InputLabel,
+  Select,
+  Button,
+  FormControl,
+  Input,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
 
 export default function FellowStudents() {
   const dispatch = useDispatch();
@@ -46,17 +55,40 @@ export default function FellowStudents() {
 
   return (
     <div>
-      <div style={{ position: "absolute", margin: "0px 15px" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: "30px",
+        }}
+      >
+        <Typography align="center" color="primary" variant="h3">
+          Fellow Students
+        </Typography>
+      </div>
+      <div
+        style={{
+          margin: "0px 15px",
+          zIndex: "10",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <div
           style={{
             display: "flex",
             border: "1px solid rgb(228, 228, 228)",
-            borderRadius: "15px",
+            borderRadius: "5px",
             height: "30px",
             paddingLeft: "8px",
-            position: "fixed",
-            top: "15px",
-            left: "50px",
+            paddingTop: "2px",
+            position: "relative",
+            top: "0px",
+            left: "0vw",
+            width: "200px",
+            marginRight: "30px",
           }}
         >
           <div>
@@ -70,17 +102,18 @@ export default function FellowStudents() {
             onChange={(e) => set_searchText(e.target.value.toLowerCase())}
           />
         </div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "10px",
-        }}
-      >
-        <p>Users</p>
-        <SwitchButton buttonState={buttonState} setButton={set_buttonState} />
-        <p>Notebooks</p>
+        <div
+          style={{
+            marginTop: "10px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <p>Users</p>
+          <SwitchButton buttonState={buttonState} setButton={set_buttonState} />
+          <p>Notebooks</p>
+        </div>
       </div>
 
       <div

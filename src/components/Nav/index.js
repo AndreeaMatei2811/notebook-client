@@ -147,26 +147,26 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <div className={classes.grow}>
+    <div className={classes.grow} style={{ zIndex: "5" }}>
       <AppBar elevation={1} color="transparent" position="static">
         <Toolbar>
           <div className={classes.grow} />
           {token ? (
             <div className={classes.grow}>
               <Button color="inherit" onClick={() => myNotebooks()}>
-                <h6 style={{ fontWeight: fontweightMyNotebook }}>
+                <h5 style={{ fontWeight: fontweightMyNotebook }}>
                   My Notebooks
-                </h6>
+                </h5>
               </Button>
               |
               <Button color="inherit" onClick={() => fellowStudents()}>
-                <h6
+                <h5
                   style={{
                     fontWeight: fontweightFollowStudents,
                   }}
                 >
                   Fellow Students
-                </h6>
+                </h5>
               </Button>
             </div>
           ) : null}
