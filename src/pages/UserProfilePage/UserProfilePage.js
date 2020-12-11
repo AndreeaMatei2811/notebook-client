@@ -15,7 +15,7 @@ export default function UserProfilePage() {
 
   return (
     <div className="my-profile">
-      <Typography variant="h3">{user.username} Profile</Typography>
+      <Typography variant="h3">{user.firstName} Profile</Typography>
       <div>
         <div>
           <Avatar

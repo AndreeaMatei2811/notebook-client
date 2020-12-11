@@ -97,7 +97,7 @@ export default function MyNotebooksPage() {
 
   function submitNewNotebook() {
     dispatch(newNotebook(name, subjectId));
-    console.log("got run");
+    // console.log("got run");
     setOpenDialog(false);
     set_name("");
     set_subjectId();
