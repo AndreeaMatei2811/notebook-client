@@ -31,7 +31,6 @@ import {
   Grid,
   IconButton,
   MuiThemeProvider,
-  Paper,
 } from "@material-ui/core";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
 import { createMuiTheme } from "@material-ui/core/styles/";
@@ -44,7 +43,6 @@ function App() {
   const isLoading = useSelector(selectAppLoading);
   const userWithToken = useSelector(selectToken);
 
-  // console.log("is darkmode yes or no", darkMode);
   const toggleDarkMode = (event) => {
     setDarkMode(!darkMode);
   };

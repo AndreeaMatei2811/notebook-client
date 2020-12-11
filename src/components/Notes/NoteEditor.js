@@ -166,7 +166,8 @@ export default function RichEditorExample() {
 // Custom overrides for "code" style.
 const styleMap = {
   CODE: {
-    backgroundColor: "rgba(0, 0, 0, 0.05)",
+    backgroundColor: "rgba(211, 211, 211, 0.05)",
+    // color: "white",
     fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
     fontSize: 16,
     padding: 2,
