@@ -6,12 +6,16 @@ import Notebook from "../../components/notebook/Notebook";
 import { fetchStudentNotebooks } from "../../store/Notebooks/actions";
 import { useParams } from "react-router-dom";
 import { selectStudentNotebooks } from "../../store/Notebooks/selectors";
+import { Typography } from "@material-ui/core";
+import { selectUser } from "../../store/user/selectors";
+import "./ShowStudent.scss";
 
 export default function ShowStudent() {
   const dispatch = useDispatch();
   const studentNotebooks = useSelector(selectStudentNotebooks);
   const [searchText, set_searchText] = useState("");
   const studentId = parseInt(useParams().studentId);
+  const user = useSelector(selectUser);
 
   let filteredNotebooks = studentNotebooks;
 
@@ -28,7 +32,15 @@ export default function ShowStudent() {
 
   return (
     <div>
-      <h3 className="align-self-center p-4">All notebooks</h3>
+      <div className="header">
+        <Typography variant="h3" align="center" color="primary">
+          {user.firstName}
+        </Typography>
+        <Typography variant="subtitle2" align="center" color="textSecondary">
+          All notebooks
+        </Typography>
+      </div>
+
       <div>
         <form className="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2 p-4">
           <input

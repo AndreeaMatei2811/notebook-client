@@ -187,14 +187,29 @@ export default function UpdateProfileForm() {
                   variant="contained"
                   type="submit"
                   onClick={submitNewPassword}
+                  style={{ marginBottom: 100 }}
                 >
                   Change password
                 </Button>
               </FormGroup>
             ) : (
-              <p style={{ color: "red" }}>
-                The passwords don't match. Please check again.
-              </p>
+              <div>
+                <p style={{ color: "red" }}>
+                  The passwords don't match. Please check again.
+                </p>
+                <FormGroup className="mt-5">
+                  <Button
+                    disabled
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                    onClick={submitNewPassword}
+                    style={{ marginBottom: 200 }}
+                  >
+                    Change password
+                  </Button>
+                </FormGroup>
+              </div>
             )}
           </Form>
         ) : null}

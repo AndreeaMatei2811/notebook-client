@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Avatar,
   Button,
   Card,
   CardContent,
@@ -23,20 +24,23 @@ export default function Notebook({
   };
 
   return (
-    <Card style={{ width: "20rem", height: "16rem", margin: "15px" }}>
-      <Typography variant="h4" style={{ margin: 20 }}>
+    <Card
+      style={{
+        width: "22rem",
+        height: "16rem",
+        margin: "15px",
+        paddingTop: 10,
+      }}
+    >
+      <Typography variant="h4" style={{ marginLeft: 20 }}>
         {notebookName}
       </Typography>
       <CardContent>
         <div>
           {imageUrl ? (
-            <img
-              style={{ height: "1.5rem", width: "1.5rem", margin: 20 }}
-              src={imageUrl}
-              alt="profile"
-            />
+            <Avatar style={{ marginLeft: 20 }} src={imageUrl} alt="profile" />
           ) : null}
-          {userName}
+          <div style={{ marginLeft: 20 }}>{userName}</div>
         </div>
         <Button
           style={{ margin: "10px" }}
