@@ -9,6 +9,8 @@ import { selectStudentNotebooks } from "../../store/Notebooks/selectors";
 import { Typography } from "@material-ui/core";
 import { selectUser } from "../../store/user/selectors";
 import "./ShowStudent.scss";
+import SearchIcon from "@material-ui/icons/Search";
+import InputBase from "@material-ui/core/InputBase";
 
 export default function ShowStudent() {
   const dispatch = useDispatch();
@@ -34,23 +36,46 @@ export default function ShowStudent() {
     <div>
       <div className="header">
         <Typography variant="h3" align="center" color="primary">
-          {user.firstName}
-        </Typography>
-        <Typography variant="subtitle2" align="center" color="textSecondary">
-          All notebooks
+          {`${user.firstName}'s notebooks`}
         </Typography>
       </div>
 
-      <div>
-        <form className="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2 p-4">
-          <input
-            className="form-control form-control-sm mr-3 w-65"
+      <div
+        style={{
+          margin: "30px 15px 0px 0px",
+          zIndex: "10",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            border: "1px solid rgb(228, 228, 228)",
+            borderRadius: "5px",
+            height: "30px",
+            paddingLeft: "8px",
+            paddingTop: "2px",
+            position: "relative",
+            top: "0px",
+            left: "0vw",
+            width: "200px",
+            marginRight: "30px",
+            marginBottom: "20px",
+          }}
+        >
+          <div>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
             type="text"
-            placeholder="Search notebook"
-            aria-label="Search"
+            value={searchText}
             onChange={(e) => set_searchText(e.target.value.toLowerCase())}
           />
-        </form>
+        </div>
       </div>
 
       <div
