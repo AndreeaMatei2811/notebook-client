@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NotebookHeader from "../../components/Notes/NotebookHeader";
 import SidebarShowNotes from "../../components/Sidebar/SidebarShowNotes";
 import "./ShowNotebook.scss";
 import NoteFeed from "./NoteFeed";
