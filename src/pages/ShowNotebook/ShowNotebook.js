@@ -73,7 +73,7 @@ export default function ShowNotebook() {
         style={{
           position: "absolute",
           margin: "10px",
-          top: "20px",
+          top: "80px",
           left: "20px",
         }}
         color="primary"
