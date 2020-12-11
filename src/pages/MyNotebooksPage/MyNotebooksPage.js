@@ -15,6 +15,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { InputLabel, Select } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import InputBase from "@material-ui/core/InputBase";
 
 export default function MyNotebooksPage() {
   const dispatch = useDispatch();
@@ -87,15 +89,26 @@ export default function MyNotebooksPage() {
     <div>
       <h3 className="align-self-center p-4">All my notebooks</h3>
       <div>
-        <form className="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2 p-4">
-          <input
-            className="form-control form-control-sm mr-3 w-65"
+        <div
+          style={{
+            display: "flex",
+            border: "1px solid grey",
+            position: "fixed",
+            top: "15px",
+            left: "50px",
+          }}
+        >
+          <div>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
             type="text"
-            placeholder="Search notebook"
-            aria-label="Search"
+            value={searchText}
             onChange={(e) => set_searchText(e.target.value.toLowerCase())}
           />
-        </form>
+        </div>
       </div>
 
       <div>

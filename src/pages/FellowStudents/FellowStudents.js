@@ -7,7 +7,8 @@ import { selectAllNotebooks } from "../../store/Notebooks/selectors";
 import { selectAllUsers } from "../../store/AllUsers/selectors";
 import Notebook from "../../components/notebook/Notebook";
 import UserCard from "../../components/UserCard/UserCard";
-
+import SearchIcon from "@material-ui/icons/Search";
+import InputBase from "@material-ui/core/InputBase";
 import SwitchButton from "../../components/SwitchButton";
 
 export default function FellowStudents() {
@@ -46,12 +47,26 @@ export default function FellowStudents() {
   return (
     <div>
       <div style={{ position: "absolute", margin: "0px 15px" }}>
-        <input
-          type="text"
-          placeholder="search"
-          value={searchText}
-          onChange={(e) => set_searchText(e.target.value.toLowerCase())}
-        />
+        <div
+          style={{
+            display: "flex",
+            border: "1px solid grey",
+            position: "fixed",
+            top: "15px",
+            left: "50px",
+          }}
+        >
+          <div>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
+            type="text"
+            value={searchText}
+            onChange={(e) => set_searchText(e.target.value.toLowerCase())}
+          />
+        </div>
       </div>
       <div
         style={{
