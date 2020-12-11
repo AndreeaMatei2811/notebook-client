@@ -43,9 +43,6 @@ function App() {
       secondary: {
         main: "#facfad",
       },
-      text: {
-        secondary: "#3e4e50",
-      },
     },
     typography: {
       button: {
