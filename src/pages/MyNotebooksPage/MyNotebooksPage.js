@@ -92,7 +92,10 @@ export default function MyNotebooksPage() {
         <div
           style={{
             display: "flex",
-            border: "1px solid grey",
+            border: "1px solid rgb(228, 228, 228)",
+            borderRadius: "15px",
+            height: "30px",
+            paddingLeft: "8px",
             position: "fixed",
             top: "15px",
             left: "50px",

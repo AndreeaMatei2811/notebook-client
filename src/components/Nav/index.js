@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -84,6 +84,8 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
+  const [myNotebookActive, set_myNotebookActive] = useState(false);
+  const [fellowStudentsActive, set_fellowStudentsActive] = useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -96,20 +98,31 @@ export default function PrimarySearchAppBar() {
   };
 
   const myNotebooks = () => {
+    set_myNotebookActive(true);
+    set_fellowStudentsActive(false);
     history.push("/my-notebooks");
   };
 
   const fellowStudents = () => {
+    set_myNotebookActive(false);
+    set_fellowStudentsActive(true);
     history.push("/fellow-students");
   };
 
   const displayProfile = () => {
+    set_myNotebookActive(false);
+    set_fellowStudentsActive(false);
     history.push("/my-profile");
   };
 
   const login = () => {
+    set_myNotebookActive(false);
+    set_fellowStudentsActive(false);
     history.push("/login");
   };
+
+  const fontweightMyNotebook = myNotebookActive ? "600" : "400";
+  const fontweightFollowStudents = fellowStudentsActive ? "600" : "400";
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -135,16 +148,25 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar color="transparent" position="static">
+      <AppBar elevation={1} color="transparent" position="static">
         <Toolbar>
           <div className={classes.grow} />
           {token ? (
             <div className={classes.grow}>
               <Button color="inherit" onClick={() => myNotebooks()}>
-                My Notebooks
+                <h6 style={{ fontWeight: fontweightMyNotebook }}>
+                  My Notebooks
+                </h6>
               </Button>
+              |
               <Button color="inherit" onClick={() => fellowStudents()}>
-                FellowStudents
+                <h6
+                  style={{
+                    fontWeight: fontweightFollowStudents,
+                  }}
+                >
+                  Fellow Students
+                </h6>
               </Button>
             </div>
           ) : null}
