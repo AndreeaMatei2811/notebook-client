@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import UpdateProfileForm from "../../components/UpdateProfileForm/UpdateProfileForm";
 import { selectUser } from "../../store/user/selectors";
+import "./UserProfile.scss";
+import { Typography, Avatar } from "@material-ui/core";
 
 export default function UserProfilePage() {
   const user = useSelector(selectUser);
@@ -12,22 +14,23 @@ export default function UserProfilePage() {
   }
 
   return (
-    <div>
-      <h3>Your Profile</h3>
+    <div className="my-profile">
+      <Typography variant="h3">{user.username} Profile</Typography>
       <div>
         <div>
-          <img
+          <Avatar
+            className="mt-3"
             src={user.imageUrl}
             alt="profile img"
-            style={{ width: 100, height: 110 }}
+            style={{ width: 150, height: 160 }}
           />
         </div>
-        <div>
+        <div className="mt-4">
           <table style={{ width: "30rem" }}>
             <thead>
-              <tr>
+              {/* <tr>
                 <th>Your information</th>
-              </tr>
+              </tr> */}
             </thead>
             <tbody>
               <tr>
@@ -48,9 +51,9 @@ export default function UserProfilePage() {
               </tr>
             </tbody>
           </table>
+          <UpdateProfileForm />
         </div>
       </div>
-      <UpdateProfileForm />
     </div>
   );
 }
