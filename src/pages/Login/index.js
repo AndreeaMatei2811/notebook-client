@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Form from "react-bootstrap/Form";
+
 import clsx from "clsx";
 import { login } from "../../store/user/actions";
 import { selectToken } from "../../store/user/selectors";
@@ -8,7 +8,6 @@ import { useHistory, Link } from "react-router-dom";
 
 import {
   FormControl,
-  Grid,
   IconButton,
   Input,
   InputAdornment,
@@ -55,7 +54,6 @@ export default function SignUp() {
   }, [token, history]);
 
   function submitForm(event) {
-    console.log("hi");
     event.preventDefault();
 
     dispatch(login(userName, values.password));
@@ -127,7 +125,10 @@ export default function SignUp() {
         Log in
       </Button>
 
-      <Link to="/signup" style={{ textAlign: "center" }}>
+      <Link
+        to="/signup"
+        style={{ textAlign: "center", textDecoration: "none" }}
+      >
         <Typography color="primary">Click here to sign up</Typography>
       </Link>
     </div>
