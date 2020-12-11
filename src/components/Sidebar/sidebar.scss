@@ -1,12 +1,11 @@
 .sidebar {
-  background-color: grey;
   display: flex;
+  position: "sticky";
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   padding: 20px;
   border-radius: 5px;
-  height: 100vh;
+  margin-top: 50px;
 
   svg {
     margin: 10px;
