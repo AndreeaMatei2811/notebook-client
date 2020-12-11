@@ -1,0 +1,16 @@
+.my-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+thead,
+tbody,
+th,
+td {
+  width: 14%;
+  margin: 5px;
+  padding: 4px 4px;
+  text-align: left;
+  font-size: 20px;
+}

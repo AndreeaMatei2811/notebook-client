@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 
-import { Button, Col } from "react-bootstrap";
+import {
+  FormControl,
+  Input,
+  InputLabel,
+  Typography,
+  Button,
+  FormGroup,
+  FormLabel,
+} from "@material-ui/core";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../store/user/selectors";
@@ -53,13 +61,17 @@ export default function UpdateProfileForm() {
   return (
     <div>
       <Button
+        color="primary"
+        variant="contained"
+        style={{ marginBottom: 30, marginTop: 20 }}
         onClick={(e) => (editForm ? setEditForm(false) : setEditForm(true))}
       >
         Update profile
       </Button>
       <div>
         <Button
-          className="mt-2"
+          color="primary"
+          variant="contained"
           onClick={(e) =>
             editPassword ? setEditPassword(false) : setEditPassword(true)
           }
@@ -67,103 +79,118 @@ export default function UpdateProfileForm() {
           Change password
         </Button>
         {editForm ? (
-          <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
-            <h1 className="mt-5 mb-2">Update profile</h1>
+          <Form style={{ marginBottom: 30, marginTop: 20 }}>
+            <Typography variant="h4">Update profile</Typography>
+            <FormGroup>
+              <FormControl controlId="formBasicUsername" className="mt-5">
+                <FormLabel>Username</FormLabel>
+                <Input
+                  value={username}
+                  onChange={(event) => setUsername(event.target.value)}
+                  type="text"
+                  placeholder="Enter new username"
+                />
+              </FormControl>
+              <FormControl controlId="formBasicFirstName" className="mt-5">
+                <FormLabel>First name</FormLabel>
+                <Input
+                  value={firstName}
+                  onChange={(event) => setFirstName(event.target.value)}
+                  type="text"
+                  placeholder="Enter new first name"
+                />
+              </FormControl>
 
-            <Form.Group controlId="formBasicUsername">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-                type="text"
-                placeholder="Enter new username"
-              />
-            </Form.Group>
+              <FormControl controlId="formBasicLastName" className="mt-5">
+                <FormLabel>Last name</FormLabel>
+                <Input
+                  value={lastName}
+                  onChange={(event) => setLastName(event.target.value)}
+                  type="text"
+                  placeholder="Enter new last name"
+                />
+              </FormControl>
 
-            <Form.Group controlId="formBasicFirstName">
-              <Form.Label>First name</Form.Label>
-              <Form.Control
-                value={firstName}
-                onChange={(event) => setFirstName(event.target.value)}
-                type="text"
-                placeholder="Enter new first name"
-              />
-            </Form.Group>
+              <FormControl controlId="formBasicEmail" className="mt-5">
+                <FormLabel>Email address</FormLabel>
+                <Input
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  type="email"
+                  placeholder="Enter new email"
+                  required
+                />
+              </FormControl>
 
-            <Form.Group controlId="formBasicLastName">
-              <Form.Label>Last name</Form.Label>
-              <Form.Control
-                value={lastName}
-                onChange={(event) => setLastName(event.target.value)}
-                type="text"
-                placeholder="Enter new last name"
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                type="email"
-                placeholder="Enter new email"
-                required
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicImageUrl">
-              <Form.Label>Profile picture</Form.Label>
-              <input
-                accept="image/*"
-                ref={hiddenFileInput}
-                type="file"
-                style={{ display: "none" }}
-                onChange={handleFileInputChange}
-              />
-              <Button onClick={handleImgClick}>Change picture</Button>
-            </Form.Group>
-            <Form.Group className="mt-5">
-              <Button variant="primary" type="submit" onClick={submitForm}>
+              <FormControl controlId="formBasicImageUrl" className="mt-5">
+                <FormLabel>Profile picture</FormLabel>
+                <input
+                  accept="image/*"
+                  ref={hiddenFileInput}
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={handleFileInputChange}
+                />
+                <Button
+                  onClick={handleImgClick}
+                  color="primary"
+                  variant="contained"
+                >
+                  Change picture
+                </Button>
+              </FormControl>
+            </FormGroup>
+            <FormGroup className="mt-5">
+              <Button
+                color="primary"
+                variant="contained"
+                type="submit"
+                onClick={submitForm}
+              >
                 Submit changes
               </Button>
-            </Form.Group>
+            </FormGroup>
           </Form>
         ) : null}
         {editPassword ? (
-          <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
-            <h1 className="mt-5 mb-2">Change password</h1>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                type="password"
-                placeholder="Password"
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="formBasicCheckPassword">
-              <Form.Label>Password check</Form.Label>
-              <Form.Control
-                value={checkPassword}
-                onChange={(event) => setCheckPassword(event.target.value)}
-                type="password"
-                placeholder="Retype password"
-                required
-              />
-            </Form.Group>
+          <Form md={{ span: 6, offset: 3 }} className="mt-5">
+            <Typography variant="h4">Change password</Typography>
+            <FormGroup>
+              <FormControl controlId="formBasicPassword" className="mt-5">
+                <FormLabel>Password</FormLabel>
+                <Input
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  type="password"
+                  placeholder="Password"
+                  required
+                />
+              </FormControl>
+
+              <FormControl controlId="formBasicCheckPassword" className="mt-5">
+                <FormLabel>Password check</FormLabel>
+                <Input
+                  value={checkPassword}
+                  onChange={(event) => setCheckPassword(event.target.value)}
+                  type="password"
+                  placeholder="Retype password"
+                  required
+                />{" "}
+              </FormControl>
+            </FormGroup>
             {!password ? (
               <p style={{ color: "red" }}>Please enter a new password.</p>
             ) : password === checkPassword ? (
-              <Form.Group className="mt-5">
+              <FormGroup className="mt-5">
                 <Button
-                  variant="primary"
+                  color="primary"
+                  variant="contained"
                   type="submit"
                   onClick={submitNewPassword}
                 >
                   Change password
                 </Button>
-              </Form.Group>
+              </FormGroup>
             ) : (
               <p style={{ color: "red" }}>
                 The passwords don't match. Please check again.
