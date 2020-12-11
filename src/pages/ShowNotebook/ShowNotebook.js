@@ -14,6 +14,7 @@ import {
 import { Select, Typography } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { selectRedirect } from "../../store/appState/selectors";
 
 export default function ShowNotebook() {
   const specificNotebook = useSelector(selectNotebook);
@@ -25,6 +26,7 @@ export default function ShowNotebook() {
   const [showDropdown, set_showDropdown] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
+  const redirect = useSelector(selectRedirect);
 
   useEffect(() => {
     if (ownedNotebookIds.includes(notebookId)) {
@@ -58,7 +60,6 @@ export default function ShowNotebook() {
     }
   };
 
-  console.log(showDropdown);
   //filter on date
   const sortedNotesByDate = filteredNotes?.sort((a, b) => {
     const dateA = new Date(a.createdAt);
