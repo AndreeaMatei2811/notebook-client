@@ -20,9 +20,7 @@ import {
   Select,
   Button,
   FormControl,
-  Input,
   Typography,
-  makeStyles,
 } from "@material-ui/core";
 import "./MyNotebooks.scss";
 
@@ -32,22 +30,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 
 export default function MyNotebooksPage() {
-  const useStyles = makeStyles((theme) => ({
-    button: {
-      margin: theme.spacing(1),
-    },
-    root: {
-      minWidth: 275,
-      marginTop: 22,
-      marginBottom: 12,
-      padding: 20,
-    },
-    table: {
-      minWidth: 650,
-    },
-  }));
-  const classes = useStyles();
-
   const dispatch = useDispatch();
   const myNotebooks = useSelector(selectMyNotebooks);
   const subjects = useSelector(selectAllSubjects);

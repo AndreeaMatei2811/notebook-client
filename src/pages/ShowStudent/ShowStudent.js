@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "react-bootstrap/Button";
 import { selectMyNotebooks } from "../../store/user/selectors";
 import Notebook from "../../components/notebook/Notebook";
 import { fetchStudentNotebooks } from "../../store/Notebooks/actions";

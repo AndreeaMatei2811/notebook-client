@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {
   FormControl,
   Input,
-  InputLabel,
   Typography,
   Button,
   FormGroup,
@@ -146,6 +145,7 @@ export default function UpdateProfileForm() {
                 variant="contained"
                 type="submit"
                 onClick={submitForm}
+                style={{ marginBottom: 200 }}
               >
                 Submit changes
               </Button>
@@ -196,7 +196,7 @@ export default function UpdateProfileForm() {
               </div>
             ) : password === checkPassword ? (
               <div>
-                <p style={{ color: "green" }}>The passwords match!</p>
+                <p style={{ color: "green" }}>Passwords match!</p>
                 <FormGroup className="mt-5">
                   <Button
                     color="primary"
@@ -211,9 +211,7 @@ export default function UpdateProfileForm() {
               </div>
             ) : (
               <div>
-                <p style={{ color: "red" }}>
-                  The passwords don't match. Please check again.
-                </p>
+                <p style={{ color: "red" }}>The passwords don't match!</p>
                 <FormGroup className="mt-5">
                   <Button
                     disabled
