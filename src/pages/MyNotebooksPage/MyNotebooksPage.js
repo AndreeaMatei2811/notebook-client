@@ -14,6 +14,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+
 import {
   InputLabel,
   Select,
@@ -24,6 +25,11 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import "./MyNotebooks.scss";
+
+import { InputLabel, Select } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import InputBase from "@material-ui/core/InputBase";
+
 
 export default function MyNotebooksPage() {
   const useStyles = makeStyles((theme) => ({
@@ -112,17 +118,41 @@ export default function MyNotebooksPage() {
     <div className="my-notebooks">
       <Typography variant="h3">My notebooks</Typography>
       <div>
+
         <FormControl>
           <Input
             style={{
               margin: 20,
             }}
+
+        <div
+          style={{
+            display: "flex",
+            border: "1px solid rgb(228, 228, 228)",
+            borderRadius: "15px",
+            height: "30px",
+            paddingLeft: "8px",
+            position: "fixed",
+            top: "15px",
+            left: "50px",
+          }}
+        >
+          <div>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
+
             type="text"
-            placeholder="Search notebook"
-            aria-label="Search"
+            value={searchText}
             onChange={(e) => set_searchText(e.target.value.toLowerCase())}
           />
+
         </FormControl>
+
+        </div>
+
       </div>
 
       <div>

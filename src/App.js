@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
-import { Switch, Route } from "react-router-dom";
+
+import { Switch, Route, Redirect } from "react-router-dom";
+
 import Navigation from "./components/Navigation";
 import Loading from "./components/Loading";
 import MessageBox from "./components/MessageBox";
@@ -14,9 +16,15 @@ import { getUserWithStoredToken } from "./store/user/actions";
 import "bootstrap/dist/css/bootstrap.min.css";
 import FellowStudents from "./pages/FellowStudents/FellowStudents";
 import TextNotesPage from "./pages/NotebookPage/TextNotesPage";
+
+import Nav from "./components/Nav";
+
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
 import ShowNotebook from "./pages/ShowNotebook/ShowNotebook";
 import ShowStudent from "./pages/ShowStudent/ShowStudent";
+
+import { selectToken } from "./store/user/selectors";
+
 import Landingpage from "./pages/HomePage/Landingpage";
 import { Grid, IconButton, MuiThemeProvider, Paper } from "@material-ui/core";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
@@ -28,6 +36,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
+  const userWithToken = useSelector(selectToken);
 
   // console.log("is darkmode yes or no", darkMode);
   const toggleDarkMode = (event) => {
@@ -42,9 +51,6 @@ function App() {
       },
       secondary: {
         main: "#facfad",
-      },
-      text: {
-        secondary: "#3e4e50",
       },
     },
     typography: {
@@ -70,7 +76,7 @@ function App() {
       <Paper style={{ minHeight: "100vh" }}>
         <Grid container>
           <Grid item sm={12}>
-            <Navigation />
+            <Nav />
           </Grid>
           <Grid item sm={11}></Grid>
           <Grid item sm={1}>
@@ -80,6 +86,7 @@ function App() {
           </Grid>
           <Grid item sm={12}>
             <MessageBox />
+            {!userWithToken ? <Redirect to="/" /> : null}
             {isLoading ? <Loading /> : null}
           </Grid>
           <Grid item sm={12}>
