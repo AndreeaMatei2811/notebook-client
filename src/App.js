@@ -96,8 +96,8 @@ function App() {
         </Grid>
         <Grid item sm={12}>
           <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/landing" component={Landingpage} />
+            <Route exact path="/" component={Landingpage} />
+            {/* <Route path="/landing" component={Landingpage} /> */}
             <Route path="/signup" component={SignUp} />
             <Route path="/login" component={Login} />
             <Route path="/my-notebooks" component={MyNotebooksPage} />
