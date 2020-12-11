@@ -5,7 +5,7 @@ import { login } from "../../store/user/actions";
 import { selectToken } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { Col } from "react-bootstrap";
+
 import {
   FormControl,
   Grid,
@@ -21,16 +21,17 @@ import {
 import { AccountCircle } from "@material-ui/icons";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import "./login.scss";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
   },
   inputField: {
     width: "400px",
   },
-  formGroup: {
-    width: "600px",
+  button: {
+    margin: theme.spacing(2),
   },
 }));
 
@@ -72,39 +73,14 @@ export default function SignUp() {
   };
 
   return (
-    <Grid
-      container
-      style={{ height: "100vh" }}
-      justify="center"
-      alignItems="center"
-      direction="column"
-    >
+    <div className="loginpage">
       <Typography variant="h2">Welcome back!</Typography>
-      {/* <h1 className="mt-5 mb-5">Login</h1> */}
-      {/* <Form.Group controlId="formBasicUserName">
-          <Form.Label>User name</Form.Label>
-          <Form.Control
-            value={userName}
-            onChange={(event) => set_userName(event.target.value)}
-            type="text"
-            placeholder="Enter userName"
-            required
-          />
-        </Form.Group> */}
 
-      {/* <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            type="password"
-            placeholder="Password"
-            required
-          />
-        </Form.Group> */}
-      <FormGroup className={classes.formGroup}>
-        <FormControl className={(classes.margin, classes.inputField)}>
-          <InputLabel htmlFor="input-with-icon-adornment">Username</InputLabel>
+      <FormGroup>
+        <FormControl className={clsx(classes.margin, classes.inputField)}>
+          <InputLabel htmlFor="input-with-icon-adornment" color="textPrimary">
+            Username
+          </InputLabel>
           <Input
             onChange={(event) => set_userName(event.target.value)}
             value={userName}
@@ -140,21 +116,20 @@ export default function SignUp() {
             }
           />
         </FormControl>
-        <FormControl>
-          <Button
-            color="primary"
-            type="submit"
-            onClick={submitForm}
-            variant="contained"
-          >
-            Log in
-          </Button>
-        </FormControl>
-        <Form.Group className="mt-5"></Form.Group>
-        <Link to="/signup" style={{ textAlign: "center" }}>
-          <Typography color="primary">Click here to sign up</Typography>
-        </Link>
       </FormGroup>
-    </Grid>
+      <Button
+        color="primary"
+        type="submit"
+        onClick={submitForm}
+        variant="contained"
+        className={classes.button}
+      >
+        Log in
+      </Button>
+
+      <Link to="/signup" style={{ textAlign: "center" }}>
+        <Typography color="primary">Click here to sign up</Typography>
+      </Link>
+    </div>
   );
 }
