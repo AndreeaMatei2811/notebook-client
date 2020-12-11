@@ -24,7 +24,7 @@ export default function user(state = initialState, action) {
 
     case "newNotebookSucces": {
       return {
-        state,
+        ...state,
         notebooks: [...state.notebooks, action.payload],
       };
     }
