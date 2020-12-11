@@ -1,5 +1,6 @@
+import { Button, Card, CardContent, Typography } from "@material-ui/core";
 import React from "react";
-import { Button, Card } from "react-bootstrap";
+
 import { useHistory } from "react-router-dom";
 
 export default function UserCard({
@@ -16,30 +17,32 @@ export default function UserCard({
   };
 
   return (
-    <Card
-      bg="Light"
-      style={{ width: "18rem", height: "12rem", margin: "10px" }}
-      className="mb-2"
-    >
-      <Card.Header>{name}</Card.Header>
-      <Card.Body>
-        <Card.Text>
+    <Card style={{ width: "20rem", height: "16rem", margin: "15px" }}>
+      <Typography variant="h4" style={{ margin: 20 }}>
+        {name}
+      </Typography>
+      <CardContent>
+        <div>
           {imageUrl ? (
-            <Card.Img
-              style={{ height: "2rem", width: "auto" }}
+            <img
+              style={{ height: "1.5rem", width: "1.5rem", margin: 20 }}
               src={imageUrl}
               alt="profile"
             />
           ) : null}
           {createdAt}
-        </Card.Text>
-        <Button onClick={() => onClickRedirect()} variant="primary">
+        </div>
+        <Button
+          style={{ margin: "10px" }}
+          onClick={() => onClickRedirect()}
+          size="sm"
+          color="primary"
+          variant="contained"
+        >
           Check out {`${type}`}
         </Button>
-      </Card.Body>
-      <Card.Footer style={{ height: "1rem", fontSize: "12px" }}>
-        <div style={{ marginTop: "-10px" }}>{createdAt}</div>
-      </Card.Footer>
+        <div style={{ margin: "10px" }}>{createdAt}</div>
+      </CardContent>
     </Card>
   );
 }
