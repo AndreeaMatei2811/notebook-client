@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {
   FormControl,
   Input,
-  InputLabel,
   Typography,
   Button,
   FormGroup,
@@ -24,7 +23,7 @@ export default function UpdateProfileForm() {
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
   const [editForm, setEditForm] = useState(false);
-  const [editPassword, setEditPassword] = useState(false);
+  const [changePassword, setChangePassword] = useState(false);
   const dispatch = useDispatch();
 
   //   console.log("first name", firstName);
@@ -55,7 +54,7 @@ export default function UpdateProfileForm() {
   function submitNewPassword(event) {
     event.preventDefault();
     dispatch(updatePassword(password));
-    setEditPassword(false);
+    setChangePassword(false);
   }
 
   return (
@@ -73,7 +72,7 @@ export default function UpdateProfileForm() {
           color="primary"
           variant="contained"
           onClick={(e) =>
-            editPassword ? setEditPassword(false) : setEditPassword(true)
+            changePassword ? setChangePassword(false) : setChangePassword(true)
           }
         >
           Change password
@@ -146,13 +145,14 @@ export default function UpdateProfileForm() {
                 variant="contained"
                 type="submit"
                 onClick={submitForm}
+                style={{ marginBottom: 200 }}
               >
                 Submit changes
               </Button>
             </FormGroup>
           </Form>
         ) : null}
-        {editPassword ? (
+        {changePassword ? (
           <Form md={{ span: 6, offset: 3 }} className="mt-5">
             <Typography variant="h4">Change password</Typography>
             <FormGroup>
@@ -179,24 +179,39 @@ export default function UpdateProfileForm() {
               </FormControl>
             </FormGroup>
             {!password ? (
-              <p style={{ color: "red" }}>Please enter a new password.</p>
+              <div>
+                <p style={{ color: "red" }}>Please enter a new password.</p>
+                <FormGroup className="mt-5">
+                  <Button
+                    disabled
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                    onClick={submitNewPassword}
+                    style={{ marginBottom: 200 }}
+                  >
+                    Change password
+                  </Button>
+                </FormGroup>{" "}
+              </div>
             ) : password === checkPassword ? (
-              <FormGroup className="mt-5">
-                <Button
-                  color="primary"
-                  variant="contained"
-                  type="submit"
-                  onClick={submitNewPassword}
-                  style={{ marginBottom: 100 }}
-                >
-                  Change password
-                </Button>
-              </FormGroup>
+              <div>
+                <p style={{ color: "green" }}>Passwords match!</p>
+                <FormGroup className="mt-5">
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                    onClick={submitNewPassword}
+                    style={{ marginBottom: 100 }}
+                  >
+                    Change password
+                  </Button>
+                </FormGroup>
+              </div>
             ) : (
               <div>
-                <p style={{ color: "red" }}>
-                  The passwords don't match. Please check again.
-                </p>
+                <p style={{ color: "red" }}>The passwords don't match!</p>
                 <FormGroup className="mt-5">
                   <Button
                     disabled

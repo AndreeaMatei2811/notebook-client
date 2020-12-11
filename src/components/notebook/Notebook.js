@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   CardContent,
-  CardHeader,
   Typography,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
