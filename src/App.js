@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
 
-
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import Navigation from "./components/Navigation";
@@ -32,7 +31,6 @@ import Brightness2Icon from "@material-ui/icons/Brightness2";
 import { createMuiTheme } from "@material-ui/core/styles/";
 
 // import { Switch } from "@material-ui/core/";
-
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -74,12 +72,11 @@ function App() {
   }, [dispatch]);
 
   return (
-
     <MuiThemeProvider theme={theme}>
       <Paper style={{ minHeight: "100vh" }}>
         <Grid container>
           <Grid item sm={12}>
-            <Navigation />
+            <Nav />
           </Grid>
           <Grid item sm={11}></Grid>
           <Grid item sm={1}>
@@ -89,7 +86,7 @@ function App() {
           </Grid>
           <Grid item sm={12}>
             <MessageBox />
-       {!userWithToken ? <Redirect to="/" /> : null}
+            {!userWithToken ? <Redirect to="/" /> : null}
             {isLoading ? <Loading /> : null}
           </Grid>
           <Grid item sm={12}>
