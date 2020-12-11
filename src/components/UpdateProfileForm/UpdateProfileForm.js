@@ -2,16 +2,17 @@ import React, { useState } from "react";
 
 import { Button, Col } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "../../store/user/selectors";
 import { postProfilePic } from "../../store/user/actions";
 import { updatePassword, updateProfile } from "../../store/user/actions";
 
 export default function UpdateProfileForm() {
-  const [imageUrl, setImageUrl] = useState("");
-  const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const user = useSelector(selectUser);
+  const [username, setUsername] = useState(user.username);
+  const [firstName, setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
   const [editForm, setEditForm] = useState(false);
@@ -33,8 +34,8 @@ export default function UpdateProfileForm() {
     const data = new FormData();
     data.append("file", file);
     data.append("upload_preset", "notebookapp");
-
     dispatch(postProfilePic(data));
+    setEditForm(false);
   };
 
   function submitForm(event) {
@@ -68,6 +69,7 @@ export default function UpdateProfileForm() {
         {editForm ? (
           <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
             <h1 className="mt-5 mb-2">Update profile</h1>
+
             <Form.Group controlId="formBasicUsername">
               <Form.Label>Username</Form.Label>
               <Form.Control
@@ -111,12 +113,6 @@ export default function UpdateProfileForm() {
 
             <Form.Group controlId="formBasicImageUrl">
               <Form.Label>Profile picture</Form.Label>
-              <Form.Control
-                value={imageUrl}
-                onChange={(event) => setImageUrl(event.target.value)}
-                type="text"
-                placeholder="Image url"
-              />
               <input
                 accept="image/*"
                 ref={hiddenFileInput}

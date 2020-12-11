@@ -1,19 +1,51 @@
 import React, { useState, useEffect } from "react";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
+
+import clsx from "clsx";
 import { login } from "../../store/user/actions";
 import { selectToken } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { Col } from "react-bootstrap";
+
+import {
+  FormControl,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  makeStyles,
+  Typography,
+  Button,
+  FormGroup,
+} from "@material-ui/core";
+import { AccountCircle } from "@material-ui/icons";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import "./login.scss";
+
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    marginTop: theme.spacing(3),
+  },
+  inputField: {
+    width: "400px",
+  },
+  button: {
+    margin: theme.spacing(2),
+  },
+}));
 
 export default function SignUp() {
+  const classes = useStyles();
   const [userName, set_userName] = useState("");
-  const [password, setPassword] = useState("");
+  // const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const history = useHistory();
+
+  const [values, setValues] = useState({
+    password: "",
+    showPassword: false,
+  });
 
   useEffect(() => {
     if (token !== null) {
@@ -22,49 +54,83 @@ export default function SignUp() {
   }, [token, history]);
 
   function submitForm(event) {
-    console.log("hi");
     event.preventDefault();
 
-    dispatch(login(userName, password));
+    dispatch(login(userName, values.password));
 
     set_userName("");
-    setPassword("");
+    setValues({ password: "", showPassword: false });
   }
 
-  return (
-    <Container>
-      <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
-        <h1 className="mt-5 mb-5">Login</h1>
-        <Form.Group controlId="formBasicUserName">
-          <Form.Label>User name</Form.Label>
-          <Form.Control
-            value={userName}
-            onChange={(event) => set_userName(event.target.value)}
-            type="text"
-            placeholder="Enter userName"
-            required
-          />
-        </Form.Group>
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            type="password"
-            placeholder="Password"
-            required
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+
+  return (
+    <div className="loginpage">
+      <Typography variant="h2">Welcome back!</Typography>
+
+      <FormGroup>
+        <FormControl className={clsx(classes.margin, classes.inputField)}>
+          <InputLabel htmlFor="input-with-icon-adornment" color="textPrimary">
+            Username
+          </InputLabel>
+          <Input
+            onChange={(event) => set_userName(event.target.value)}
+            value={userName}
+            type="text"
+            placeholder="Enter username"
+            id="input-with-icon-adornment"
+            endAdornment={
+              <InputAdornment position="end">
+                <AccountCircle />
+              </InputAdornment>
+            }
           />
-        </Form.Group>
-        <Form.Group className="mt-5">
-          <Button variant="primary" type="submit" onClick={submitForm}>
-            Log in
-          </Button>
-        </Form.Group>
-        <Link to="/signup" style={{ textAlign: "center" }}>
-          Click here to sign up
-        </Link>
-      </Form>
-    </Container>
+        </FormControl>
+        <FormControl className={clsx(classes.margin, classes.inputField)}>
+          <InputLabel htmlFor="standard-adornment-password">
+            Password
+          </InputLabel>
+          <Input
+            placeholder="Enter password"
+            id="standard-adornment-password"
+            type={values.showPassword ? "text" : "password"}
+            value={values.password}
+            onChange={handleChange("password")}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                >
+                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+      </FormGroup>
+      <Button
+        color="primary"
+        type="submit"
+        onClick={submitForm}
+        variant="contained"
+        className={classes.button}
+      >
+        Log in
+      </Button>
+
+      <Link
+        to="/signup"
+        style={{ textAlign: "center", textDecoration: "none" }}
+      >
+        <Typography color="primary">Click here to sign up</Typography>
+      </Link>
+    </div>
   );
 }

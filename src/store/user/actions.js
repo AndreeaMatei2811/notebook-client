@@ -155,7 +155,7 @@ const updateSuccess = (updateUser) => {
   };
 };
 
-export const updateProfile = (firstName, lastName, username, email) => {
+export const updateProfile = (username, firstName, lastName, email) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     const token = selectToken(getState());
@@ -164,10 +164,9 @@ export const updateProfile = (firstName, lastName, username, email) => {
       const response = await axios.patch(
         `${apiUrl}/users/update-user`,
         {
+          username,
           firstName,
           lastName,
-          username,
-
           email,
         },
         {
@@ -191,6 +190,13 @@ export const updateProfile = (firstName, lastName, username, email) => {
   };
 };
 
+const updatePictureSuccess = (updatePicture) => {
+  return {
+    type: "updateProfilePicture",
+    payload: updatePicture,
+  };
+};
+
 export const updateProfilePic = (imageUrl) => {
   return async (dispatch, getState) => {
     const token = selectToken(getState());
@@ -205,6 +211,12 @@ export const updateProfilePic = (imageUrl) => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+
+      dispatch(updatePictureSuccess(res.data));
+      dispatch(
+        showMessageWithTimeout("success", true, "Profile picture updated.")
+      );
+      dispatch(appDoneLoading());
     } catch (error) {
       console.error(error);
     }
