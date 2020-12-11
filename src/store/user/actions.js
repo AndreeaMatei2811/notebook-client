@@ -32,12 +32,9 @@ export const newNotebookSucces = (newNotebook) => ({
 });
 
 export function newNotebook(name, subjectId) {
-  console.log("got run action");
-  console.log("req", name, subjectId);
   return async (dispatch, getState) => {
     const token = selectToken(getState());
     // console.log("token", token);
-
     console.log("req", name, subjectId);
     dispatch(appLoading());
 
