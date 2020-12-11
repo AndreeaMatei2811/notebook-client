@@ -18,7 +18,7 @@ import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
 import ShowNotebook from "./pages/ShowNotebook/ShowNotebook";
 import ShowStudent from "./pages/ShowStudent/ShowStudent";
 import Landingpage from "./pages/HomePage/Landingpage";
-import { IconButton, MuiThemeProvider, Paper } from "@material-ui/core";
+import { Grid, IconButton, MuiThemeProvider, Paper } from "@material-ui/core";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
 import { createMuiTheme } from "@material-ui/core/styles/";
 
@@ -52,8 +52,11 @@ function App() {
         fontFamily: "Source Sans Pro",
       },
       fontFamily: "Source Sans Pro",
+      h1: {
+        fontFamily: "Merriweather",
+      },
       subtitle1: {
-        fontFamily: "Architects Daughter",
+        fontFamily: "Merriweather",
       },
     },
   });
@@ -64,35 +67,45 @@ function App() {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <Paper>
-        <div className="App">
-          <Navigation />
-          <IconButton onClick={toggleDarkMode}>
-            <Brightness2Icon />
-          </IconButton>
-
-          <MessageBox />
-          {isLoading ? <Loading /> : null}
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/landing" component={Landingpage} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/login" component={Login} />
-            <Route path="/my-notebooks" component={MyNotebooksPage} />
-            <Route path="/fellow-students" component={FellowStudents} />
-
-            <Route path="/show-notebook/:notebookId" component={ShowNotebook} />
-            <Route
-              path="/notebook/student/:studentId"
-              component={ShowStudent}
-            />
-            <Route
-              path="/notebook/:notebookId/textnotes"
-              component={TextNotesPage}
-            />
-            <Route path="/my-profile" component={UserProfilePage} />
-          </Switch>
-        </div>
+      <Paper style={{ minHeight: "100vh" }}>
+        <Grid container>
+          <Grid item sm={12}>
+            <Navigation />
+          </Grid>
+          <Grid item sm={11}></Grid>
+          <Grid item sm={1}>
+            <IconButton onClick={toggleDarkMode}>
+              <Brightness2Icon />
+            </IconButton>
+          </Grid>
+          <Grid item sm={12}>
+            <MessageBox />
+            {isLoading ? <Loading /> : null}
+          </Grid>
+          <Grid item sm={12}>
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route path="/landing" component={Landingpage} />
+              <Route path="/signup" component={SignUp} />
+              <Route path="/login" component={Login} />
+              <Route path="/my-notebooks" component={MyNotebooksPage} />
+              <Route path="/fellow-students" component={FellowStudents} />
+              <Route
+                path="/show-notebook/:notebookId"
+                component={ShowNotebook}
+              />
+              <Route
+                path="/notebook/student/:studentId"
+                component={ShowStudent}
+              />
+              <Route
+                path="/notebook/:notebookId/textnotes"
+                component={TextNotesPage}
+              />
+              <Route path="/my-profile" component={UserProfilePage} />
+            </Switch>
+          </Grid>
+        </Grid>
       </Paper>
     </MuiThemeProvider>
   );

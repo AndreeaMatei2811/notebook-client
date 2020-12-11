@@ -1,7 +1,7 @@
 import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import React from "react";
 import "./Landingpage.scss";
-import notebookimage from "./IMG_0191.PNG";
+import notebookimage from "./IMG_0197.PNG";
 
 export default function Landingpage() {
   return (
