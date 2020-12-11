@@ -6,7 +6,6 @@ import { fetchStudentNotebooks } from "../../store/Notebooks/actions";
 import { useParams } from "react-router-dom";
 import { selectStudentNotebooks } from "../../store/Notebooks/selectors";
 import { Typography } from "@material-ui/core";
-import { selectUser } from "../../store/user/selectors";
 import "./ShowStudent.scss";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
@@ -16,9 +15,15 @@ export default function ShowStudent() {
   const studentNotebooks = useSelector(selectStudentNotebooks);
   const [searchText, set_searchText] = useState("");
   const studentId = parseInt(useParams().studentId);
-  const user = useSelector(selectUser);
 
   let filteredNotebooks = studentNotebooks;
+  console.log("filteredNotebooks", filteredNotebooks);
+
+  const student = filteredNotebooks.find(
+    (student) => studentId === student.userId
+  );
+
+  console.log(student);
 
   useEffect(() => {
     dispatch(fetchStudentNotebooks(studentId));
@@ -35,7 +40,8 @@ export default function ShowStudent() {
     <div>
       <div className="header">
         <Typography variant="h3" align="center" color="primary">
-          {`${user.firstName}'s notebooks`}
+          {`${student?.user.username}'s notebooks`}
+          {/* {`All notebooks`} */}
         </Typography>
       </div>
 
