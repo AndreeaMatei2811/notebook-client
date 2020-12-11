@@ -12,7 +12,7 @@ import {
   selectMyNotebooksIds,
   selectMyNotebooks,
 } from "../../store/user/selectors";
-import { Select } from "@material-ui/core";
+import { Select, Typography } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
@@ -69,11 +69,13 @@ export default function ShowNotebook() {
 
   return (
     <div className="notebook">
-      <div className="side">
-        <SidebarShowNotes setFilter={set_filter} notebookId={notebookId} />
-      </div>
       <Fab
-        style={{ position: "absolute", margin: "10px" }}
+        style={{
+          position: "absolute",
+          margin: "10px",
+          top: "20px",
+          left: "20px",
+        }}
         color="primary"
         aria-label="add"
         onClick={() => onClickGoBack()}
@@ -82,48 +84,66 @@ export default function ShowNotebook() {
       </Fab>
       <div style={{ width: " 100%" }}>
         <div className="main">
-          <NotebookHeader
-            header={specificNotebook.name}
-            subheader={`Notebook owner: ${specificNotebook.user?.firstName} ${specificNotebook.user?.lastName}`}
-          />
-        </div>
-
-        {showDropdown ? (
-          <Select
-            variant="outlined"
-            fullWidth
-            id="demo-controlled-open-select"
-            color="primary"
-            onChange={(e) => history.push(`/show-notebook/${e.target.value}`)}
-          >
-            <option value="Select Subject"></option>
-            {ownedNotebooks.map((notebook) => {
-              return (
-                <option value={notebook.id} key={notebook.id}>
-                  {notebook.name}
-                </option>
-              );
-            })}
-          </Select>
-        ) : null}
-
-        {filter === "showNoteEditor" ? (
-          <NoteEditor />
-        ) : (
-          <div style={{ margin: "10px" }}>
-            {sortedNotesByDate?.map((note, i) => {
-              return (
-                <NoteFeed
-                  key={i}
-                  title={note.title}
-                  content={note.content}
-                  date={note.createdAt}
-                  type={note.typeOfNote}
-                />
-              );
-            })}
+          <div className="header">
+            <Typography variant="h3" align="center" color="primary">
+              {specificNotebook.name}
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              align="center"
+              color="textSecondary"
+            >{`Notebook owner: ${specificNotebook.user?.firstName} ${specificNotebook.user?.lastName}`}</Typography>
           </div>
-        )}
+          <div className="content">
+            <div className="contentsidebar">
+              <SidebarShowNotes
+                setFilter={set_filter}
+                notebookId={notebookId}
+              />
+            </div>
+            <div className="contentnotes">
+              {showDropdown ? (
+                <Select
+                  className="switchNotebook"
+                  defaultValue="Select Subject"
+                  variant="outlined"
+                  id="demo-controlled-open-select"
+                  color="primary"
+                  onChange={(e) =>
+                    history.push(`/show-notebook/${e.target.value}`)
+                  }
+                >
+                  <option value="Select Subject">switch notebook</option>
+                  {ownedNotebooks.map((notebook) => {
+                    return (
+                      <option value={notebook.id} key={notebook.id}>
+                        {notebook.name}
+                      </option>
+                    );
+                  })}
+                </Select>
+              ) : null}
+
+              {filter === "showNoteEditor" ? (
+                <NoteEditor />
+              ) : (
+                <div className="noteCards">
+                  {sortedNotesByDate?.map((note, i) => {
+                    return (
+                      <NoteFeed
+                        key={i}
+                        title={note.title}
+                        content={note.content}
+                        date={note.createdAt}
+                        type={note.typeOfNote}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

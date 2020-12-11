@@ -1,16 +1,35 @@
 .notebook {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   .main {
     flex: 1;
+
+    .header {
+      margin-bottom: 50px;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: row;
+    }
+    .contentnotes {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .switchNotebook {
+        // align-self: flex-start;
+      }
+    }
   }
 }
 
 .textnotes_note {
   margin-bottom: 50px;
   width: 70vw;
-  background: #fff;
+  // background: #fff;
   border: 1px solid #ddd;
   font-family: "Georgia", serif;
   font-size: 14px;
