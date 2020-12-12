@@ -91,12 +91,17 @@ function App() {
         </Grid>
         <Grid item sm={12}>
           <MessageBox />
-          {!userWithToken ? <Redirect to="/" /> : null}
+          {!userWithToken ? (
+            <Redirect to="/" />
+          ) : (
+            <Redirect to="/my-notebooks" />
+          )}
           {isLoading ? <Loading /> : null}
         </Grid>
         <Grid item sm={12}>
           <Switch>
             <Route exact path="/" component={Landingpage} />
+            <Route exact path="/test" component={Landingpage} />
             {/* <Route path="/landing" component={Landingpage} /> */}
             <Route path="/signup" component={SignUp} />
             <Route path="/login" component={Login} />
