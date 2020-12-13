@@ -21,7 +21,6 @@ This project is made during the Codaisseur code academy group project week. In a
 <img align="left" alt="React" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" />
 <img align="left" alt="Node.js" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png" />
 
-
 <br />
 <br />
 
@@ -43,21 +42,20 @@ In the project directory, you can run:
 as a user:
 
 - I want to be to create notebooks regarding different subjects
-- I want to be able to create easy readable and writable notes 
+- I want to be able to create easy readable and writable notes
 - I want to be able to distinguish between type of notes (step by step, definition, text note and snippet)
 - I want to easily group and filter my notes by type
 - I want, since there can be many notebooks, easily search for notebooks on a specific topic
 - I want to easily navigate between my notebooks
 - I want to be able to view notebooks and notes of other students
-- I want to be able to sign up, log in and change my profile 
-
+- I want to be able to sign up, log in and change my profile
 
 ---
 
 ### Wireframe & database model
 
-<img align="left" alt="DatabaseModel" width="100%" src="./Images/Wireframes.jpg" />
-<img align="left" alt="DatabaseModel" width="100%" src="./Images/DatabaseModel.jpg" />
+<img align="left" alt="DatabaseModel" width="100%" src="./img/Wireframe.jpg" />
+<img align="left" alt="DatabaseModel" width="100%" src="./img/dbdiagram.png.jpg" />
 
 <br />
 <br />
